@@ -1,9 +1,9 @@
-# Your Project's Title...
-Your project's description...
+# Entegris / POCO
+Franklin migration for https://poco.entegris.com
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--entegris--hlxsites.hlx.page/
+- Live: https://main--entegris--hlxsites.hlx.live/
 
 ## Installation
 
