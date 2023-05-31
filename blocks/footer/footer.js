@@ -19,6 +19,13 @@ export default async function decorate(block) {
     const footer = document.createElement('div');
     footer.innerHTML = html;
 
+    const logo = footer.querySelector('.logo');
+    const logoLink = logo.querySelector('a');
+    const logoImagePath = logoLink.textContent;
+    const logoImage = document.createElement('img');
+    logoImage.src = logoImagePath;
+    logoLink.replaceChildren(logoImage);
+
     decorateIcons(footer);
     block.append(footer);
   }

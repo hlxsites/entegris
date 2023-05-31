@@ -1,0 +1,17 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="0.39in" height="0.37in" viewBox="0 0 28.27 26.6">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #b31a1b;
+      }
+    </style>
+  </defs>
+  <g id="Product_Catalog_1x_Grey" data-name="Product Catalog 1x Grey">
+    <path class="cls-1" d="M13.93,26.49,1.5,21,1,6,13.92,0,27.05,6V20.51ZM2.48,20.34l11.44,5.05,12.13-5.52V6.62L13.93,1.1,2.06,6.62Z"/>
+    <polygon class="cls-1" points="13.79 12.25 1.35 6.77 1.76 5.86 14.2 11.34 13.79 12.25"/>
+    <polygon class="cls-1" points="20.42 9.3 7.98 3.82 8.38 2.9 20.82 8.38 20.42 9.3"/>
+    <rect class="cls-1" x="13.58" y="11.6" width="1" height="14.04"/>
+    <path class="cls-1" d="M20.35,13.68a.5.5,0,0,1-.5-.5V9a.5.5,0,0,1,1,0v4.19A.5.5,0,0,1,20.35,13.68Z"/>
+    <polygon class="cls-1" points="14.2 12.21 13.79 11.3 25.99 5.82 26.9 6.53 14.2 12.21"/>
+  </g>
+</svg>

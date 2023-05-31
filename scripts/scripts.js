@@ -25,9 +25,15 @@ function buildHeroBlock(main) {
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(buildBlock('hero', { elems: [picture] }));
     main.prepend(section);
   }
+}
+
+function buildBreadcrumb(main) {
+  const section = document.createElement('div');
+  section.append(buildBlock('breadcrumb', [[]]));
+  main.prepend(section);
 }
 
 /**
@@ -36,11 +42,47 @@ function buildHeroBlock(main) {
  */
 function buildAutoBlocks(main) {
   try {
+    buildBreadcrumb(main);
     buildHeroBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
+}
+
+export function getBasePath(fullURL) {
+  try {
+    const parsedURL = new URL(fullURL);
+    const pathName = parsedURL.pathname;
+    return pathName.substring(0, pathName.indexOf('.'));
+  } catch (eww) { }
+}
+
+/**
+ * Gets the Index and puts it into Session Storage. 
+ * If the Index was previously fetch'd, then it just gets it from there.
+ * @returns {Object} The Index
+ */
+export async function getIndex() {
+  let indexJSON = sessionStorage.getItem('index');
+  if (!indexJSON) {
+    try {
+      const resp = await fetch('/en/home/our-science/query-index.json');
+      indexJSON = JSON.stringify(await resp.json());
+      sessionStorage.setItem('index', indexJSON);
+    } catch (error) {
+      console.error('Fetching Index failed', error);
+    }
+  }
+  const indexObj = await JSON.parse(indexJSON);
+  indexObj.getEntry = function (basePath) {
+    for (const entry of indexObj.data) {
+      if (basePath === entry.path) {
+        return entry;
+      }
+    }
+  }
+  return indexObj;
 }
 
 /**
@@ -66,6 +108,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    await getIndex();
     decorateMain(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);

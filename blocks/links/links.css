@@ -1,0 +1,86 @@
+main .links-container .links-wrapper {
+  padding: 0;
+}
+@media (min-width: 900px) {
+  main .links-container .links-wrapper .links {
+    padding-right: 70px;
+  }
+}
+main .links-container .links-wrapper .links h2 {
+  font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #393630;
+  text-transform: uppercase;
+}
+main .links-container .links-wrapper .links h2::after {
+  content: "";
+  height: 2px;
+  width: 20px;
+  background: #393630;
+  display: block;
+  -webkit-transition: width 1s ease-in-out;
+  -o-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out;
+  margin-top: 0.2rem;
+}
+main .links-container .links-wrapper .links > div {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 900px) {
+  main .links-container .links-wrapper .links > div {
+    flex-direction: row;
+    column-gap: 30px;
+  }
+}
+main .links-container .links-wrapper .links > div > div {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 900px) {
+  main .links-container .links-wrapper .links > div > div {
+    min-width: 50%;
+  }
+}
+main .links-container .links-wrapper .links p:has(a) {
+  border: 1px solid #e8e8e8;
+  padding: 25px;
+  margin-top: 10px;
+  position: relative;
+  border-right: 30px solid #2a6a83;
+}
+main .links-container .links-wrapper .links p:has(a) a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #393630;
+}
+main .links-container .links-wrapper .links p:has(a) a:hover {
+  color: #2a6a83;
+  text-decoration: none;
+  border-color: #2a6a83;
+}
+main .links-container .links-wrapper .links p:has(a) a::after {
+  color: #fff;
+  border-right: 1px solid currentcolor;
+  border-bottom: 1px solid currentcolor;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  right: -18px;
+  top: 50%;
+  transform: rotate(-45deg);
+}
+main .links-container .links-wrapper .links p:has(a) a h3 {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+main .links-container .links-wrapper .links p:has(a) a p {
+  font-size: 14px;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+@media (min-width: 900px) {
+  main .links-container .links-wrapper .links p:has(a) a p {
+    font-size: 16px;
+  }
+}

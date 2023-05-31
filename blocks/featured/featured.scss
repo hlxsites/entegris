@@ -1,0 +1,91 @@
+.featured-container {
+
+    margin-top: 0;
+
+    @media (min-width: 900px) {
+        display: flex;
+        align-items: flex-start;
+        max-width: var(--max-width);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .default-content-wrapper {
+        margin-top: 0;
+        padding: 0 15px 0;
+
+        @media (min-width: 900px) {
+            width: 66%;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+    }
+
+    .featured-wrapper {
+        border: 1px solid #cfcece;
+        background-color: #f7f5f5;
+        background-size: cover;
+        margin: 0 15px 20px;
+
+        @media (min-width: 900px) {
+            width: 33%;
+        }
+
+        .bg {
+            background-image: url('/content/dam/web/ux/espot/background/desktop/espot-blue-rings.svg?$img-576-height$');
+        }
+
+        .featured {
+            min-height: 320px;
+            font-family: "Trade Gothic LT Std",Helvetica,Arial,sans-serif;
+
+
+            h2 {
+                margin: 0;
+                padding: 15px;
+                font-weight: 700;
+                color: #fff;
+                background-color: #2a6a83;
+            }
+
+            p {
+                margin: 20px 20px 20px 20px;
+
+                &:first-of-type {
+                    display: flex;
+                    justify-content: left;
+                    flex-direction: row-reverse;
+                    font-size: 19px;
+                    font-weight: 400;
+                    height: 125px;
+                    img {
+                        height: 50px;
+                        margin-right: 20px;
+                    }
+                }
+            }
+
+            .button-container {
+                margin: 40px 30px 0px;
+                
+                a {
+                    color: #393630;
+                    font-size: 1rem;
+                    border: 1px solid #393630;
+                    padding: 15px;
+                    border-radius: 2px;
+                    text-transform: uppercase;
+                    font-weight: 700;
+
+                    &:hover {
+                        color: #2a6a83;
+                        text-decoration: none;
+                        border-color: #2a6a83;
+                    }
+                }
+            }
+        }
+    }
+}

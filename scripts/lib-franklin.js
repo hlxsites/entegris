@@ -620,6 +620,25 @@ export function setup() {
 }
 
 /**
+ * 
+ * @returns Gets the Index and puts it into Session Storag. If the Index was previously fetch'd, then it just gets it from there.
+ * 
+ */
+export async function getIndex() {
+  let indexJSON = sessionStorage.getItem('index');
+  if (!indexJSON) {
+    try {
+      const resp = await fetch('/en/home/our-science/query-index.json');
+      indexJSON = JSON.stringify(await resp.json());
+      sessionStorage.setItem('index', indexJSON);
+    } catch (error) {
+      console.error('Fetching Index failed', error);
+    } 
+  }
+  return JSON.parse(indexJSON);
+}
+
+/**
  * Auto initializiation.
  */
 function init() {

@@ -1,0 +1,81 @@
+.featured-container {
+  margin-top: 0;
+}
+@media (min-width: 900px) {
+  .featured-container {
+    display: flex;
+    align-items: flex-start;
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.featured-container .default-content-wrapper {
+  margin-top: 0;
+  padding: 0 15px 0;
+}
+@media (min-width: 900px) {
+  .featured-container .default-content-wrapper {
+    width: 66%;
+  }
+}
+.featured-container .default-content-wrapper p {
+  margin: 0 0 10px;
+}
+.featured-container .featured-wrapper {
+  border: 1px solid #cfcece;
+  background-color: #f7f5f5;
+  background-size: cover;
+  margin: 0 15px 20px;
+}
+@media (min-width: 900px) {
+  .featured-container .featured-wrapper {
+    width: 33%;
+  }
+}
+.featured-container .featured-wrapper .bg {
+  background-image: url("/content/dam/web/ux/espot/background/desktop/espot-blue-rings.svg?$img-576-height$");
+}
+.featured-container .featured-wrapper .featured {
+  min-height: 320px;
+  font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
+}
+.featured-container .featured-wrapper .featured h2 {
+  margin: 0;
+  padding: 15px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #2a6a83;
+}
+.featured-container .featured-wrapper .featured p {
+  margin: 20px 20px 20px 20px;
+}
+.featured-container .featured-wrapper .featured p:first-of-type {
+  display: flex;
+  justify-content: left;
+  flex-direction: row-reverse;
+  font-size: 19px;
+  font-weight: 400;
+  height: 125px;
+}
+.featured-container .featured-wrapper .featured p:first-of-type img {
+  height: 50px;
+  margin-right: 20px;
+}
+.featured-container .featured-wrapper .featured .button-container {
+  margin: 40px 30px 0px;
+}
+.featured-container .featured-wrapper .featured .button-container a {
+  color: #393630;
+  font-size: 1rem;
+  border: 1px solid #393630;
+  padding: 15px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.featured-container .featured-wrapper .featured .button-container a:hover {
+  color: #2a6a83;
+  text-decoration: none;
+  border-color: #2a6a83;
+}

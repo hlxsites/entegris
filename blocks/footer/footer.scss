@@ -1,0 +1,169 @@
+footer {
+
+	.footer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 15px;
+		background: #ece9e7;
+
+		@media (min-width: 900px) {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+
+		a {
+			text-decoration: none;
+			color: #000;
+
+			&:hover {
+				color: #b31a1b;
+				text-decoration: underline;	
+			}
+		}
+
+		&>div {
+
+			display: flex;
+			flex-direction: column;
+
+			margin-left: auto;
+			margin-right: auto;
+
+			@media (min-width: 900px) {
+
+			}
+
+			&>div {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				&:first-of-type {
+					padding-top: 30px;
+				}
+
+				@media (min-width: 900px) {
+					width: 1000px;
+					align-items: flex-start;
+					flex-direction: row;
+					justify-content: space-between;
+				}
+
+				.logo {
+					width: 100px;
+				}
+
+				.contact {
+
+					p {
+						font-size: 10.5px;
+						font-weight: 400;
+
+						img {
+							padding-right: 15px;
+						}
+					}
+				}
+
+				.nav {
+					color: #393630;
+					font-family: "Trade Gothic LT Std Bold 2", Helvetica, Arial, sans-serif;
+					width: 100%;
+
+					@media (min-width: 900px) {
+						width: 25%;
+					}
+
+					ul {
+						list-style-type: none;
+						padding: 0;
+
+						li {
+							margin-bottom: 10px;
+							;
+
+							a {
+								position: relative;
+								font-size: 12px;
+
+								&::after {
+									color: #000;
+									border-right: 1px solid currentcolor;
+									border-bottom: 1px solid currentcolor;
+									content: '';
+									position: absolute;
+									width: 7px;
+									height: 7px;
+									right: -18px;
+									top: 25%;
+									transform: rotate(-45deg);
+								}
+							}
+						}
+					}
+				}
+
+				.social {
+					width: 100%;
+
+					@media (min-width: 900px) {
+						width: 25%;
+					}
+
+					div {
+
+						display: flex;
+						column-gap: 20px;
+					}
+				}
+
+				.site-links {
+					font-size: 10.5px;
+					font-weight: 400;
+
+					ul {
+						display: flex;
+						list-style-type: none;
+						padding: 0;
+
+						li {
+							font-size: 14px;
+							padding: 0 0.2rem 0 0;
+							display: inline-block;
+
+							@media (min-width: 900px) {
+								font-size: .75rem;
+							}
+
+							&:not(:last-of-type)::after {
+								padding-left: 0.4rem;
+								content: '/';
+								font-size: 11px;
+							}
+						}
+					}
+				}
+
+				p {
+					font-size: 14px;
+					font-weight: 400;
+
+					@media (min-width: 900px) {
+						font-size: 10.5px;
+					}
+				}
+			}
+
+			&>div:nth-child(2) {
+
+				@media (min-width: 900px) {
+					flex-direction: row-reverse;
+				}
+
+			}
+		}
+	}
+}

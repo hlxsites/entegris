@@ -1,0 +1,36 @@
+.callout-container .callout-wrapper .callout {
+  border: 1px solid #e8e8e8;
+  padding: 25px;
+  margin-top: 10px;
+  position: relative;
+  border-radius: 2px;
+}
+.callout-container .callout-wrapper .callout div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #393630;
+}
+@media (min-width: 900px) {
+  .callout-container .callout-wrapper .callout div {
+    flex-direction: row;
+  }
+}
+.callout-container .callout-wrapper .callout div h2 {
+  font-weight: 600;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+.callout-container .callout-wrapper .callout div a {
+  color: #393630;
+  font-weight: 400;
+  font-family: "Trade Gothic LT Std Bold 2", Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media (min-width: 900px) {
+  .callout-container .callout-wrapper .callout div a {
+    font-size: 24px;
+  }
+}
