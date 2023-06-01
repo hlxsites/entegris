@@ -13,6 +13,8 @@ import {
   loadCSS,
 } from './lib-franklin.js';
 
+const isDesktop = window.matchMedia('(min-width: 900px)');
+
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
@@ -85,6 +87,177 @@ export async function getIndex() {
   return indexObj;
 }
 
+async function assembleMegaMenu() {
+  const megaMenuContainer = document.createElement('div');
+  megaMenuContainer.id = 'mega-menu-container';
+  document.querySelector('body').append(megaMenuContainer);
+
+  const firstLevelMenusContainer = document.createElement('div');
+  firstLevelMenusContainer.id = 'first-level-container';
+  megaMenuContainer.append(firstLevelMenusContainer);
+
+  const collapsableContainer = document.createElement('div');
+  collapsableContainer.id = 'collapsable-container';
+  megaMenuContainer.append(collapsableContainer);
+
+  const menuButtonBar = document.createElement('div');
+  menuButtonBar.id = 'menu-button-bar';
+  menuButtonBar.innerHTML = '<a id="close-button">&#x2715</a>'
+  collapsableContainer.append(menuButtonBar);
+
+  const levelsHolder = document.createElement('div');
+  levelsHolder.id = 'levels-holder';
+  collapsableContainer.append(levelsHolder);
+
+  const secondLevelMenusContainer = document.createElement('div');
+  secondLevelMenusContainer.id = 'second-level-container';
+  secondLevelMenusContainer.classList.add('menus-container');
+  levelsHolder.append(secondLevelMenusContainer);
+
+  const thirdLevelMenusContainer = document.createElement('div');
+  thirdLevelMenusContainer.id = 'third-level-container';
+  thirdLevelMenusContainer.classList.add('menus-container');
+  levelsHolder.append(thirdLevelMenusContainer);
+
+
+
+
+  const megaMenuData = await getMegaMenu();
+  //console.log('menu', megaMenu);
+  console.log('menu', megaMenuData)
+  const multiTierNav = megaMenuData.querySelector('.multi-tier-container');
+
+  // TODO: Move this logic to a decorateDAMLinks function
+  megaMenuData.querySelectorAll('img').forEach(img => {
+    const src = img.getAttribute('src');
+    if (src.startsWith('/')) {
+      img.src = `https://poco.entegris.com${src}`;
+    }
+  });
+
+  const mainSections = megaMenuData?.querySelector('#finder')?.querySelectorAll('.icon-bar > .icon_middle');
+  const extraSections = megaMenuData?.querySelector('.multi-tier-container > .icon-bar')?.querySelectorAll('.icon_middle');
+  [...mainSections, ...extraSections].forEach(section => {
+    const icon = section.querySelector(':scope > a');
+    firstLevelMenusContainer.append(icon);
+    icon.id = icon.dataset.icons;
+
+    icon.addEventListener('click', (e) => {
+      if (loadNextLevel(icon.id)) {
+        e.preventDefault();
+      }
+    });
+
+
+    if (icon.classList.contains('oursites-icon')) {
+      icon.id = 'our-sites';
+    }
+
+    const secondLevelItemList = document.createElement('div');
+    secondLevelItemList.classList.add('item-list');
+    secondLevelItemList.dataset.belongsTo = icon.id;
+
+    if (icon.id === 'our-sites') {
+      const siteLinks = megaMenuData.querySelector('.site-links');
+      secondLevelItemList.append(siteLinks);
+      secondLevelMenusContainer.append(secondLevelItemList);
+    } else {
+      const subSections = section?.querySelectorAll('.icon_middle > ul > li');
+      subSections?.forEach(subSection => {
+
+        const item = document.createElement('a');
+        item.href = subSection.dataset.url; 
+        item.textContent = subSection.querySelector('p')?.textContent;
+
+        const subSubSections = subSection.querySelectorAll(':scope > ul > li');
+        if (subSubSections?.length > 0) {
+          item.classList.add('header');
+        }
+
+        secondLevelItemList.append(item);
+
+        subSubSections?.forEach(subSubSection => {
+          const subItem = document.createElement('a');
+          subItem.href = subSubSection.dataset.url;
+          subItem.addEventListener('click', (e) => {
+            if (loadNextLevel(subItem.id)) {
+              e.preventDefault();
+            }
+          });
+
+          subItem.textContent = subSubSection.querySelector('p')?.textContent;
+
+          const thirdLevelItemList = document.createElement('div');
+          thirdLevelItemList.classList.add('item-list');
+          thirdLevelItemList.dataset.belongsTo = item.id;
+
+          const subSubSubSections = subSubSection.querySelectorAll(':scope > ul > li');
+
+          secondLevelItemList.append(subItem);
+
+          subSubSubSections?.forEach(subSubSubSection => {
+            const subSubItem = document.createElement('a');
+            subSubItem.href = subSubSubSection.dataset.url;
+            subSubItem.textContent = subSubSubSection.querySelector('p')?.textContent;
+            thirdLevelItemList.append(subSubItem);
+          });
+          if (subSubSubSections?.length > 0) {
+            const subHeader = subItem.cloneNode(true);
+            subItem.id = subSubSection.dataset.key; //Set the Id *after* it's cloned
+            subHeader.classList.add('header');
+            thirdLevelItemList.prepend(subHeader);
+            thirdLevelItemList.dataset.belongsTo = subItem.id;
+          }
+          if (subItem.id) {
+            thirdLevelMenusContainer.append(thirdLevelItemList);
+          }
+        });
+
+        secondLevelMenusContainer.append(secondLevelItemList);
+      });
+    }
+  });
+
+  const menuCloseButton = megaMenuContainer.querySelector('#close-button');
+  menuCloseButton.addEventListener('click', (e) => {
+    const lastShowing = levelsHolder.querySelectorAll('.showing');
+    if (lastShowing?.length > 0) {
+      lastShowing[lastShowing.length - 1].classList.remove('showing');
+    }
+  })
+
+  function loadNextLevel(id) {
+    megaMenuContainer.querySelectorAll('[data-belongs-to]').forEach(subItem => {
+      if (id && !subItem?.querySelector(`#${id}`))
+        subItem.style.display = 'none';
+    });
+    const itemList = megaMenuContainer.querySelector(`[data-belongs-to="${id}"]`);
+    if (itemList) {
+      const menusContainer = itemList.closest('.menus-container');
+      menusContainer?.classList.add('showing');
+      itemList.style.display = 'flex';
+    }
+    return (itemList);
+  }
+}
+
+/**
+ * Gets the Mega Menu and adds it to the DOM. 
+  * @returns {String} The Menu HTML
+ */
+async function getMegaMenu() {
+  try {
+    const resp = await fetch('https://poco.entegris.com/content/microsite-live/poco-live/en.multitiernavigation.html');
+    const megaMenuMarkup = await resp.text();
+
+    const megaMenu = new DOMParser().parseFromString(megaMenuMarkup, 'text/html');
+    return megaMenu;
+  } catch (error) {
+    console.error('Fetching Mega Menu failed', error);
+  }
+}
+
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -97,6 +270,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  assembleMegaMenu();
 }
 
 /**
