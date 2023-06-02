@@ -60,6 +60,10 @@ export function getBasePath(fullURL) {
   } catch (eww) { }
 }
 
+export function getMetaContentByName(name) {
+  return document.querySelector(`meta[name="${name}"]`)?.content;
+}
+
 /**
  * Gets the Index and puts it into Session Storage. 
  * If the Index was previously fetch'd, then it just gets it from there.
@@ -85,6 +89,20 @@ export async function getIndex() {
     }
   }
   return indexObj;
+}
+
+export function createEl(name, attributes = {}, content, parentEl) {
+  const el = document.createElement(name);
+  for(const attrName in attributes) {
+    el.setAttribute(attrName, attributes[attrName]);
+  }
+  if(content) {
+    el.append(content);
+  }
+  if(parentEl) {
+    parentEl.append(el);
+  }
+  return el;
 }
 
 async function assembleMegaMenu() {
@@ -119,15 +137,11 @@ async function assembleMegaMenu() {
   thirdLevelMenusContainer.classList.add('menus-container');
   levelsHolder.append(thirdLevelMenusContainer);
 
-
-
-
-  const megaMenuData = await getMegaMenu();
-  //console.log('menu', megaMenu);
-  console.log('menu', megaMenuData)
+  const megaMenuData = await getMegaMenuData();
+  console.log('menu', megaMenuData);
   const multiTierNav = megaMenuData.querySelector('.multi-tier-container');
 
-  // TODO: Move this logic to a decorateDAMLinks function
+  // TODO: Move this logic to a decorateRelativeLinks function
   megaMenuData.querySelectorAll('img').forEach(img => {
     const src = img.getAttribute('src');
     if (src.startsWith('/')) {
@@ -143,14 +157,16 @@ async function assembleMegaMenu() {
     icon.id = icon.dataset.icons;
 
     icon.addEventListener('click', (e) => {
+      closeLastLevel();
       if (loadNextLevel(icon.id)) {
         e.preventDefault();
       }
     });
 
-
     if (icon.classList.contains('oursites-icon')) {
       icon.id = 'our-sites';
+    } else if (icon.classList.contains('more-icon')) {
+      icon.id = 'more-icon';
     }
 
     const secondLevelItemList = document.createElement('div');
@@ -161,54 +177,68 @@ async function assembleMegaMenu() {
       const siteLinks = megaMenuData.querySelector('.site-links');
       secondLevelItemList.append(siteLinks);
       secondLevelMenusContainer.append(secondLevelItemList);
+    } else if (icon.id === 'more-icon') {
+      // const siteLinks = megaMenuData.querySelector('.site-links');
+      // secondLevelItemList.append(siteLinks);
+      secondLevelItemList.id = 'more';
+      secondLevelMenusContainer.querySelectorAll('.item-list:not(#more)')?.forEach(menu => {
+        const menuNode = menu.cloneNode(true); //This wont work... need to parse the nodes
+        menuNode.style.display = 'flex';
+        secondLevelItemList.append(menuNode);
+      });
+      
+      
+      secondLevelMenusContainer.append(secondLevelItemList);
+
     } else {
       const subSections = section?.querySelectorAll('.icon_middle > ul > li');
       subSections?.forEach(subSection => {
 
-        const item = document.createElement('a');
-        item.href = subSection.dataset.url; 
-        item.textContent = subSection.querySelector('p')?.textContent;
+        const secondLevelItem = document.createElement('a');
+        secondLevelItem.href = subSection.dataset.url;
+        secondLevelItem.textContent = subSection.querySelector('p')?.textContent;
 
         const subSubSections = subSection.querySelectorAll(':scope > ul > li');
         if (subSubSections?.length > 0) {
-          item.classList.add('header');
+          secondLevelItem.classList.add('header');
         }
 
-        secondLevelItemList.append(item);
+        secondLevelItemList.append(secondLevelItem);
 
         subSubSections?.forEach(subSubSection => {
-          const subItem = document.createElement('a');
-          subItem.href = subSubSection.dataset.url;
-          subItem.addEventListener('click', (e) => {
-            if (loadNextLevel(subItem.id)) {
+          const secondLevelSubItem = document.createElement('a');
+          secondLevelSubItem.href = subSubSection.dataset.url;
+          secondLevelSubItem.addEventListener('click', (e) => {
+            if (loadNextLevel(secondLevelSubItem.id)) {
               e.preventDefault();
             }
           });
 
-          subItem.textContent = subSubSection.querySelector('p')?.textContent;
+          secondLevelSubItem.textContent = subSubSection.querySelector('p')?.textContent;
 
           const thirdLevelItemList = document.createElement('div');
           thirdLevelItemList.classList.add('item-list');
-          thirdLevelItemList.dataset.belongsTo = item.id;
+          thirdLevelItemList.dataset.belongsTo = secondLevelItem.id;
 
           const subSubSubSections = subSubSection.querySelectorAll(':scope > ul > li');
 
-          secondLevelItemList.append(subItem);
+          secondLevelItemList.append(secondLevelSubItem);
 
           subSubSubSections?.forEach(subSubSubSection => {
-            const subSubItem = document.createElement('a');
-            subSubItem.href = subSubSubSection.dataset.url;
-            subSubItem.textContent = subSubSubSection.querySelector('p')?.textContent;
-            thirdLevelItemList.append(subSubItem);
+            const thirdLevelItem = document.createElement('a');
+            thirdLevelItem.href = subSubSubSection.dataset.url;
+            thirdLevelItem.textContent = subSubSubSection.querySelector('p')?.textContent;
+            thirdLevelItemList.append(thirdLevelItem);
           });
           if (subSubSubSections?.length > 0) {
-            const subHeader = subItem.cloneNode(true);
-            subItem.id = subSubSection.dataset.key; //Set the Id *after* it's cloned
-            subHeader.classList.add('header');
-            thirdLevelItemList.prepend(subHeader);
-            thirdLevelItemList.dataset.belongsTo = subItem.id;
+            secondLevelSubItem.classList.add('has-children');
+            const thirdLevelHeaderItem = secondLevelSubItem.cloneNode(true);
+            secondLevelSubItem.id = subSubSection.dataset.key; //Set the Id *after* it's cloned
+            thirdLevelHeaderItem.classList.add('header');
+            thirdLevelItemList.prepend(thirdLevelHeaderItem);
+            thirdLevelItemList.dataset.belongsTo = secondLevelSubItem.id;
           }
-          if (subItem.id) {
+          if (secondLevelSubItem.id) {
             thirdLevelMenusContainer.append(thirdLevelItemList);
           }
         });
@@ -220,11 +250,15 @@ async function assembleMegaMenu() {
 
   const menuCloseButton = megaMenuContainer.querySelector('#close-button');
   menuCloseButton.addEventListener('click', (e) => {
+    closeLastLevel();
+  })
+
+  function closeLastLevel() {
     const lastShowing = levelsHolder.querySelectorAll('.showing');
     if (lastShowing?.length > 0) {
-      lastShowing[lastShowing.length - 1].classList.remove('showing');
+      lastShowing[lastShowing.length - 1].classList.remove('showing', 'full');
     }
-  })
+  }
 
   function loadNextLevel(id) {
     megaMenuContainer.querySelectorAll('[data-belongs-to]').forEach(subItem => {
@@ -235,6 +269,9 @@ async function assembleMegaMenu() {
     if (itemList) {
       const menusContainer = itemList.closest('.menus-container');
       menusContainer?.classList.add('showing');
+      if(itemList.dataset.belongsTo === 'more-icon') {
+        menusContainer?.classList.add('full');
+      }
       itemList.style.display = 'flex';
     }
     return (itemList);
@@ -242,10 +279,10 @@ async function assembleMegaMenu() {
 }
 
 /**
- * Gets the Mega Menu and adds it to the DOM. 
+ * Gets the external Mega Menu Data from AEM. 
   * @returns {String} The Menu HTML
  */
-async function getMegaMenu() {
+async function getMegaMenuData() {
   try {
     const resp = await fetch('https://poco.entegris.com/content/microsite-live/poco-live/en.multitiernavigation.html');
     const megaMenuMarkup = await resp.text();
@@ -270,7 +307,6 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  assembleMegaMenu();
 }
 
 /**
@@ -313,7 +349,7 @@ export function addFavIcon(href) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
-
+  assembleMegaMenu();
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();

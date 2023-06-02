@@ -140,6 +140,16 @@ body.appear {
   line-height: 1.3;
   margin: 0 auto;
 }
+#mega-menu-container #first-level-container a.more-icon {
+  display: none;
+  margin-top: auto;
+  margin-bottom: 40px;
+}
+@media (min-width: 900px) {
+  #mega-menu-container #first-level-container a.more-icon {
+    display: block;
+  }
+}
 #mega-menu-container #collapsable-container {
   position: absolute;
   display: flex;
@@ -153,6 +163,7 @@ body.appear {
   border-bottom: 2px solid #ebe9e7;
   border-right: 2px solid #ebe9e7;
   z-index: 50;
+  opacity: 0.97;
 }
 #mega-menu-container #collapsable-container:has(.showing) {
   left: 81px;
@@ -167,6 +178,7 @@ body.appear {
   background-color: #f7f5f5;
   border-top: 2px solid #ece9e7;
   border-bottom: 2px solid #ece9e7;
+  opacity: 0.97;
 }
 #mega-menu-container #collapsable-container #levels-holder {
   display: flex;
@@ -187,6 +199,12 @@ body.appear {
   width: 360px;
   transition: width 0.4s linear;
 }
+#mega-menu-container #collapsable-container #levels-holder #second-level-container.full {
+  display: flex;
+  padding: 10px;
+  width: 100vw;
+  transition: width 0.2s linear;
+}
 #mega-menu-container #collapsable-container #levels-holder #second-level-container > div {
   display: none;
   flex-direction: column;
@@ -198,6 +216,30 @@ body.appear {
 }
 #mega-menu-container #collapsable-container #levels-holder #second-level-container .site-links li {
   padding-top: 20px;
+}
+#mega-menu-container #collapsable-container #levels-holder #second-level-container a {
+  position: relative;
+}
+#mega-menu-container #collapsable-container #levels-holder #second-level-container a.has-children::after {
+  color: #000;
+  border-right: 1px solid currentcolor;
+  border-bottom: 1px solid currentcolor;
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  right: 10px;
+  bottom: 7px;
+  transform: rotate(-45deg);
+  z-index: 100;
+}
+#mega-menu-container #collapsable-container #levels-holder #second-level-container #more {
+  display: flex;
+  flex-direction: row;
+}
+#mega-menu-container #collapsable-container #levels-holder #second-level-container #more .item-list {
+  display: flex;
+  flex-direction: column;
 }
 #mega-menu-container #collapsable-container #levels-holder #third-level-container {
   display: flex;
