@@ -2,10 +2,14 @@ main {
     .breadcrumb-container {
         position: relative;
         display: flex;
-        margin: 0 0 50px;
+        margin: 100px 0 50px;
         padding: 0;
         width: 100%;
         background-color: #b31a1b;
+
+        @media (min-width: 900px) {
+            margin: 0 0 50px;
+        }
 
         &::after {
             content: '';

@@ -1,4 +1,6 @@
 .featured-container {
+  display: flex;
+  align-items: flex-start;
   margin-top: 0;
 }
 @media (min-width: 900px) {
@@ -33,9 +35,6 @@
     width: 33%;
   }
 }
-.featured-container .featured-wrapper .bg {
-  background-image: url("/content/dam/web/ux/espot/background/desktop/espot-blue-rings.svg?$img-576-height$");
-}
 .featured-container .featured-wrapper .featured {
   min-height: 320px;
   font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
@@ -44,11 +43,14 @@
   margin: 0;
   padding: 15px;
   font-weight: 700;
+  font-style: normal;
   color: #fff;
   background-color: #2a6a83;
 }
 .featured-container .featured-wrapper .featured p {
   margin: 20px 20px 20px 20px;
+  font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
+  font-weight: 400;
 }
 .featured-container .featured-wrapper .featured p:first-of-type {
   display: flex;
@@ -59,7 +61,7 @@
   height: 125px;
 }
 .featured-container .featured-wrapper .featured p:first-of-type img {
-  height: 50px;
+  height: 66px;
   margin-right: 20px;
 }
 .featured-container .featured-wrapper .featured .button-container {
@@ -67,15 +69,28 @@
 }
 .featured-container .featured-wrapper .featured .button-container a {
   color: #393630;
+  font-weight: 700;
   font-size: 1rem;
   border: 1px solid #393630;
   padding: 15px;
   border-radius: 2px;
   text-transform: uppercase;
-  font-weight: 700;
 }
 .featured-container .featured-wrapper .featured .button-container a:hover {
   color: #2a6a83;
   text-decoration: none;
   border-color: #2a6a83;
+}
+.featured-container .featured-wrapper .featured.espot-blue-rings {
+  background-image: url("https://poco.entegris.com/content/dam/web/ux/espot/background/desktop/espot-blue-rings.svg?$img-576-height$");
+}
+.featured-container .featured-wrapper .featured.espot-blue-rings h2 {
+  background: none;
+}
+.featured-container .featured-wrapper .featured.espot-blue-rings p {
+  color: #fff;
+}
+.featured-container .featured-wrapper .featured.espot-blue-rings .button-container a {
+  color: #fff;
+  border: 1px solid #fff;
 }

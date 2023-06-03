@@ -1,9 +1,11 @@
 main {
 
     .links-container {
+        padding: 0 30px 0;
 
         .links-wrapper {
             padding: 0;
+            margin: 40px auto 40px;
 
             .links {
 
@@ -16,6 +18,7 @@ main {
                     font-weight: 700;
                     color: #393630;
                     text-transform: uppercase;
+                    margin-bottom: 55px;
 
                     &::after {
                         content: '';
@@ -94,6 +97,55 @@ main {
                             }
                         }
                     }
+                }
+
+                &.quick {
+
+                    &>div>div {
+                        width: 100%;
+                    }
+
+                    h2 {
+                        font-size: 20px;
+                        color: #fff;
+                        background-color: #2a6a83;
+                        padding: 10px 15px 10px 20px;
+                        margin: 0;
+
+                        &::after {
+                            content: none;
+                        }
+                    }
+
+                    p:has(a) {
+                        font-weight: 600;
+                        font-size: 14px;
+                        margin: 0;
+                        border: 0;
+                        border-bottom: 1px solid #bfb6af;
+                        padding: 20px;
+
+                        @media (min-width: 900px) {
+                            font-size: 16px;
+                        }
+
+
+                        a {
+                            &::after {
+                                color: #393630;
+                                border-right: 1px solid currentColor;
+                                border-bottom: 1px solid currentColor;
+                                content: '';
+                                position: absolute;
+                                width: 10px;
+                                height: 10px;
+                                right: 20px;
+                                top: 50%;
+                                transform: rotate(-45deg);
+                            }
+                        }
+                    }
+
                 }
             }
         }
