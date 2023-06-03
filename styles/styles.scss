@@ -274,7 +274,7 @@
     --heading-font-size-m: 24px;
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
-    --nav-height: 64px;
+    --nav-height: 100px;
     --max-width: 100%;
 
     @media (min-width: 900px) {
@@ -665,6 +665,12 @@ samp {
 }
 
 main {
+    margin-top: 100px;
+
+    @media (min-width: 900px) {
+        margin-top: 0;
+    }
+
     pre {
         background-color: var(--overlay-background-color);
         padding: 1em;

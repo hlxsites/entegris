@@ -8,6 +8,7 @@
   z-index: 50;
   justify-content: center;
   position: fixed;
+  top: 0;
 }
 @media (min-width: 900px) {
   .header-wrapper {
@@ -22,4 +23,5 @@
 }
 .header-wrapper .header .logo img {
   width: 100px;
+  height: 69px;
 }
