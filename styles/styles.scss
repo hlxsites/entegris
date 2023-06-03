@@ -569,7 +569,24 @@ body {
 }
 
 header {
+    position: fixed;
+    top: 0;
     height: var(--nav-height);
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+    width: 100vw;
+    z-index: 50;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+
+    @media (min-width: 900px) {
+        justify-content: flex-start;
+        position: relative;
+    }
 }
 
 h1,

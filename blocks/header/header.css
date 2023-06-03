@@ -1,27 +1,9 @@
-.header-wrapper {
-  height: 100px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: #fff;
-  width: 100vw;
-  z-index: 50;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-}
 @media (min-width: 900px) {
-  .header-wrapper {
-    justify-content: flex-start;
-    position: relative;
-  }
-}
-@media (min-width: 900px) {
-  .header-wrapper .header .logo {
+  header .header .logo {
     margin-left: 70px;
   }
 }
-.header-wrapper .header .logo img {
+header .header .logo img {
   width: 100px;
   height: 69px;
 }
