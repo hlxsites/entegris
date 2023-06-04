@@ -93,13 +93,13 @@ export async function getIndex() {
 
 export function createEl(name, attributes = {}, content, parentEl) {
   const el = document.createElement(name);
-  for(const attrName in attributes) {
+  for (const attrName in attributes) {
     el.setAttribute(attrName, attributes[attrName]);
   }
-  if(content) {
+  if (content) {
     el.append(content);
   }
-  if(parentEl) {
+  if (parentEl) {
     parentEl.append(el);
   }
   return el;
@@ -186,8 +186,8 @@ async function assembleMegaMenu() {
         menuNode.style.display = 'flex';
         secondLevelItemList.append(menuNode);
       });
-      
-      
+
+
       secondLevelMenusContainer.append(secondLevelItemList);
 
     } else {
@@ -269,7 +269,7 @@ async function assembleMegaMenu() {
     if (itemList) {
       const menusContainer = itemList.closest('.menus-container');
       menusContainer?.classList.add('showing');
-      if(itemList.dataset.belongsTo === 'more-icon') {
+      if (itemList.dataset.belongsTo === 'more-icon') {
         menusContainer?.classList.add('full');
       }
       itemList.style.display = 'flex';
@@ -284,7 +284,7 @@ async function assembleMegaMenu() {
  */
 async function getMegaMenuData() {
   try {
-    const resp = await fetch('https://poco.entegris.com/content/microsite-live/poco-live/en.multitiernavigation.html');
+    const resp = await fetch('/content/microsite-live/poco-live/en.multitiernavigation.html');
     const megaMenuMarkup = await resp.text();
 
     const megaMenu = new DOMParser().parseFromString(megaMenuMarkup, 'text/html');
@@ -294,6 +294,38 @@ async function getMegaMenuData() {
   }
 }
 
+async function assembleMobileMenu() {
+  const mobileMenu = createEl('nav', {
+    id: 'mobile-menu',
+    class: 'mobile-menu-container'
+  }, '', document.body);
+
+  const menu = createEl('a', {
+    href: '#',
+    class: 'megamenu'
+  }, 'Menu', mobileMenu);
+
+  menu.addEventListener('click', () => {
+
+  });
+
+  const goTop = createEl('a', {
+    href: '#',
+    class: 'gotop'
+  }, 'Top', mobileMenu);
+
+  const search = createEl('a', {
+    href: '#',
+    class: 'search'
+  }, 'Search', mobileMenu);
+
+  const tools = createEl('a', {
+    href: '#',
+    class: 'tools'
+  }, 'Tools', mobileMenu);
+
+
+}
 
 /**
  * Decorates the main element.
@@ -349,7 +381,8 @@ export function addFavIcon(href) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
-  assembleMegaMenu();
+  await assembleMegaMenu();
+  await assembleMobileMenu();
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();

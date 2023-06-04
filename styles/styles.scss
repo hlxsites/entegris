@@ -568,6 +568,52 @@ body {
     }
 }
 
+#mobile-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    z-index: 1000;
+    height: 60px;
+    background-color: #f7f5f5;
+    border-top: 1px solid #e0d9d9;
+
+    @media (min-width: 900px) {
+        display: none;
+    }
+
+    &>a {
+        display: block;
+        width: 94px;
+        padding-top: 30px;        
+        color: #393630;
+        font-size: 11px;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-image: url(/icons/sprite.svg);
+        background-position-x: 50%;
+    }
+
+    .megamenu {
+        background-position-y: -416px;
+    }
+
+    .gotop {
+        background-position-y: -1455px;
+    }
+
+    .search {
+        background-position-y: -780px;
+    }
+
+    .tools {
+        background-position-y: -1352px;
+    }
+}
+
 header {
     position: fixed;
     top: 0;
