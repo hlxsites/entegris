@@ -6,25 +6,31 @@
 }
 @media (min-width: 900px) {
   .featured-container {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 66% 33%;
+    grid-row-start: auto;
+    grid-row-end: auto;
+    grid-template-areas: "content featured" "content links" "content .";
+    row-gap: 16px;
     max-width: var(--max-width);
     margin-left: auto;
     margin-right: auto;
   }
-}
-.featured-container .default-content-wrapper {
-  margin-top: 0;
-  padding: 0 15px 0;
-}
-@media (min-width: 900px) {
   .featured-container .default-content-wrapper {
-    width: 66%;
+    margin-top: 0;
+    padding: 0 15px 0;
   }
 }
-.featured-container .default-content-wrapper p {
-  margin: 0 0 10px;
+@media (min-width: 900px) and (min-width: 900px) {
+  .featured-container .default-content-wrapper {
+    grid-area: content;
+  }
+}
+@media (min-width: 900px) {
+  .featured-container .default-content-wrapper p {
+    margin: 0 0 10px;
+  }
 }
 .featured-container .featured-wrapper {
   border: 1px solid #cfcece;
@@ -34,7 +40,8 @@
 }
 @media (min-width: 900px) {
   .featured-container .featured-wrapper {
-    width: 33%;
+    grid-area: featured;
+    margin: 0;
   }
 }
 .featured-container .featured-wrapper .featured {
@@ -95,4 +102,16 @@
 .featured-container .featured-wrapper .featured.espot-blue-rings .button-container a {
   color: #fff;
   border: 1px solid #fff;
+}
+@media (min-width: 900px) {
+  .featured-container .links-wrapper {
+    grid-area: links;
+    justify-self: start;
+    margin: 0 !important;
+  }
+}
+@media (min-width: 900px) {
+  .featured-container .links-wrapper .links.quick {
+    padding-right: 0;
+  }
 }

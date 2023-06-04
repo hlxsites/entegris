@@ -5,24 +5,36 @@
     margin-top: 0;
 
     @media (min-width: 900px) {
-        display: flex;
-        align-items: flex-start;
-        flex-direction: row;
+
+        max-width: 1100px;
+        display: grid;
+        grid-template-columns: 66% 33%;
+        grid-row-start: auto;
+        grid-row-end: auto;
+        grid-template-areas:
+            "content featured"
+            "content links"
+            "content .";
+        row-gap: 16px;
+        // display: flex;
+        // align-items: flex-start;
         max-width: var(--max-width);
         margin-left: auto;
         margin-right: auto;
-    }
 
-    .default-content-wrapper {
-        margin-top: 0;
-        padding: 0 15px 0;
 
-        @media (min-width: 900px) {
-            width: 66%;
-        }
+        .default-content-wrapper {
+            margin-top: 0;
+            padding: 0 15px 0;
 
-        p {
-            margin: 0 0 10px;
+            @media (min-width: 900px) {
+                grid-area: content;
+                //width: 66%;
+            }
+
+            p {
+                margin: 0 0 10px;
+            }
         }
     }
 
@@ -33,7 +45,10 @@
         margin: 0 15px 20px;
 
         @media (min-width: 900px) {
-            width: 33%;
+            grid-area: featured;
+            margin: 0;
+
+            //width: 33%;
         }
 
         .featured {
@@ -51,7 +66,7 @@
 
             p {
                 margin: 20px 20px 20px 20px;
-                font-family: "Trade Gothic LT Std",Helvetica,Arial,sans-serif;
+                font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
                 font-weight: 400;
 
                 &:first-of-type {
@@ -106,6 +121,21 @@
                         border: 1px solid #fff;
                     }
                 }
+            }
+        }
+    }
+
+    .links-wrapper {
+
+        @media (min-width: 900px) {
+            grid-area: links;
+            justify-self: start;
+            margin: 0 !important;
+        }
+
+        .links.quick {
+            @media (min-width: 900px) {
+                padding-right: 0;
             }
         }
     }
