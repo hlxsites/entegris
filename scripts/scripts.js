@@ -13,7 +13,7 @@ import {
   loadCSS,
 } from './lib-franklin.js';
 
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 900px)').matches;
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -111,7 +111,7 @@ async function assembleMegaMenu() {
   document.querySelector('body').append(megaMenuContainer);
 
   const firstLevelMenusContainer = document.createElement('div');
-  firstLevelMenusContainer.id = 'first-level-container';
+  firstLevelMenusContainer.id = 'first-level-rail';
   megaMenuContainer.append(firstLevelMenusContainer);
 
   const collapsableContainer = document.createElement('div');
@@ -120,22 +120,34 @@ async function assembleMegaMenu() {
 
   const menuButtonBar = document.createElement('div');
   menuButtonBar.id = 'menu-button-bar';
-  menuButtonBar.innerHTML = '<a id="close-button">&#x2715</a>'
+  // menuButtonBar.innerHTML = '<a id="back-button">&lt</a><a id="close-button">&#x2715</a>'
   collapsableContainer.append(menuButtonBar);
+
+  const backButton = createEl('a', {
+    id: 'back-button',
+    href: '#'
+  }, '< Back', menuButtonBar);
+
+  const spacer = createEl('span', {}, '', menuButtonBar);
+
+  const closeButton = createEl('a', {
+    id: 'close-button',
+    href: '#'
+  }, '✕', menuButtonBar);
 
   const levelsHolder = document.createElement('div');
   levelsHolder.id = 'levels-holder';
   collapsableContainer.append(levelsHolder);
 
-  const secondLevelMenusContainer = document.createElement('div');
-  secondLevelMenusContainer.id = 'second-level-container';
-  secondLevelMenusContainer.classList.add('menus-container');
-  levelsHolder.append(secondLevelMenusContainer);
+  const firstFlyoutPanel = document.createElement('div');
+  firstFlyoutPanel.id = 'second-level-flyout';
+  firstFlyoutPanel.classList.add('menus-container');
+  levelsHolder.append(firstFlyoutPanel);
 
-  const thirdLevelMenusContainer = document.createElement('div');
-  thirdLevelMenusContainer.id = 'third-level-container';
-  thirdLevelMenusContainer.classList.add('menus-container');
-  levelsHolder.append(thirdLevelMenusContainer);
+  const secondFlyoutPanel = document.createElement('div');
+  secondFlyoutPanel.id = 'third-level-flyout';
+  secondFlyoutPanel.classList.add('menus-container');
+  levelsHolder.append(secondFlyoutPanel);
 
   const megaMenuData = await getMegaMenuData();
   console.log('menu', megaMenuData);
@@ -176,19 +188,18 @@ async function assembleMegaMenu() {
     if (icon.id === 'our-sites') {
       const siteLinks = megaMenuData.querySelector('.site-links');
       secondLevelItemList.append(siteLinks);
-      secondLevelMenusContainer.append(secondLevelItemList);
+      firstFlyoutPanel.append(secondLevelItemList);
     } else if (icon.id === 'more-icon') {
       // const siteLinks = megaMenuData.querySelector('.site-links');
       // secondLevelItemList.append(siteLinks);
       secondLevelItemList.id = 'more';
-      secondLevelMenusContainer.querySelectorAll('.item-list:not(#more)')?.forEach(menu => {
+      firstFlyoutPanel.querySelectorAll('.item-list:not(#more)')?.forEach(menu => {
         const menuNode = menu.cloneNode(true); //This wont work... need to parse the nodes
         menuNode.style.display = 'flex';
         secondLevelItemList.append(menuNode);
       });
 
-
-      secondLevelMenusContainer.append(secondLevelItemList);
+      firstFlyoutPanel.append(secondLevelItemList);
 
     } else {
       const subSections = section?.querySelectorAll('.icon_middle > ul > li');
@@ -210,6 +221,12 @@ async function assembleMegaMenu() {
           secondLevelSubItem.href = subSubSection.dataset.url;
           secondLevelSubItem.addEventListener('click', (e) => {
             if (loadNextLevel(secondLevelSubItem.id)) {
+              console.log('isDesktop', isDesktop)
+              if (!isDesktop) {
+                closeButton.style.display = 'none';
+                backButton.style.display = 'inline';
+                firstFlyoutPanel.classList.add('collapsed');
+              }
               e.preventDefault();
             }
           });
@@ -233,24 +250,30 @@ async function assembleMegaMenu() {
           if (subSubSubSections?.length > 0) {
             secondLevelSubItem.classList.add('has-children');
             const thirdLevelHeaderItem = secondLevelSubItem.cloneNode(true);
-            secondLevelSubItem.id = subSubSection.dataset.key; //Set the Id *after* it's cloned
+            secondLevelSubItem.id = `${subSubSection.dataset.key}_item`; //Set the Id *after* it's cloned
             thirdLevelHeaderItem.classList.add('header');
             thirdLevelItemList.prepend(thirdLevelHeaderItem);
             thirdLevelItemList.dataset.belongsTo = secondLevelSubItem.id;
           }
           if (secondLevelSubItem.id) {
-            thirdLevelMenusContainer.append(thirdLevelItemList);
+            secondFlyoutPanel.append(thirdLevelItemList);
           }
         });
 
-        secondLevelMenusContainer.append(secondLevelItemList);
+        firstFlyoutPanel.append(secondLevelItemList);
       });
     }
   });
 
-  const menuCloseButton = megaMenuContainer.querySelector('#close-button');
-  menuCloseButton.addEventListener('click', (e) => {
+  closeButton.addEventListener('click', (e) => {
     closeLastLevel();
+  });
+
+  backButton.addEventListener('click', (e) => {
+    closeLastLevel();
+    closeButton.style.display = 'inline';
+    backButton.style.display = 'none';
+    firstFlyoutPanel.classList.remove('collapsed');
   })
 
   function closeLastLevel() {
@@ -306,7 +329,10 @@ async function assembleMobileMenu() {
   }, 'Menu', mobileMenu);
 
   menu.addEventListener('click', () => {
-
+    const megeMenuContainer = document.querySelector('#mega-menu-container');
+    megeMenuContainer.classList.contains('show-mobile') ?
+      megeMenuContainer.classList.remove('show-mobile') :
+      megeMenuContainer.classList.add('show-mobile');
   });
 
   const goTop = createEl('a', {

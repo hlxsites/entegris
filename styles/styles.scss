@@ -316,17 +316,25 @@ body {
     position: fixed;
     display: flex;
     left: 0;
+    top: 100vh;
     z-index: 100;
     height: 100vh;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    opacity: 0;
+    transition: top 0.4s linear, opacity 0.5s linear;
 
-    #close-button {
-        color: #b31a1b;
-        text-decoration: none;
-        cursor: pointer;
+    @media (min-width: 900px) {
+        top: 0px;
+        opacity: 1;
     }
 
-    #first-level-container {
+    &.show-mobile {
+        top: 0;
+        opacity: 1;
+
+    }
+
+    #first-level-rail {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -419,32 +427,51 @@ body {
             display: flex;
             min-height: 23px;
             padding: 14px 25px 14px;
-            justify-content: flex-end;
+            justify-content: space-between;
             color: red;
             background-color: #f7f5f5;
             border-top: 2px solid #ece9e7;
             border-bottom: 2px solid #ece9e7;
             opacity: 0.97;
+
+            #close-button {
+                color: #b31a1b;
+                text-decoration: none;
+                cursor: pointer;
+                display: inline;
+            }
+
+            #back-button {
+                color: #b31a1b;
+                text-decoration: none;
+                cursor: pointer;
+                display: none;
+            }
         }
 
         #levels-holder {
+            position: relative;
             display: flex;
             height: 100%;
 
-            #second-level-container {
+            #second-level-flyout {
                 display: flex;
                 flex-direction: column;
                 background-color: #fff;
                 width: 0;
                 transition: width 0.4s linear;
                 height: inherit;
-                overflow-x: auto;
+                overflow-x: hidden;
 
                 &.showing {
                     display: flex;
                     padding: 10px;
-                    width: 360px;
-                    transition: width 0.4s linear;
+                    width: 270px;
+                }
+
+                &.collapsed {
+                    width: 0;
+                    padding: 0;
                 }
 
                 &.full {
@@ -498,19 +525,19 @@ body {
                 }
             }
 
-            #third-level-container {
+            #third-level-flyout {
                 display: flex;
                 width: 0;
                 transition: width 0.4s linear;
                 flex-direction: column;
                 background-color: #fff;
                 height: inherit;
-                overflow-x: auto;
+                overflow-x: hidden;
 
                 &.showing {
                     display: flex;
                     padding: 10px;
-                    width: 360px;
+                    width: 270px;
                     transition: width 0.4s linear;
                     border-left: 2px solid #ebe9e7;
                 }
@@ -524,7 +551,7 @@ body {
             .item-list {
                 display: none;
                 margin-left: 19px;
-                min-width: 300px;
+                min-width: 88%;
 
                 a {
                     padding-top: 20px;
@@ -557,11 +584,23 @@ body {
 
             #levels-holder {
 
-                #first-level-container {}
+                #first-level-rail {}
 
-                #second-level-container {}
+                #second-level-flyout {
+                    &.showing {
+                        width: 360px;
+                    }
+                }
 
-                #third-level-container {}
+                #third-level-flyout {
+                    &.showing {
+                        width: 360px;
+                    }
+                }
+
+                .item-list {
+                    min-width: 300px;
+                }
 
             }
         }
@@ -588,7 +627,7 @@ body {
     &>a {
         display: block;
         width: 94px;
-        padding-top: 30px;        
+        padding-top: 30px;
         color: #393630;
         font-size: 11px;
         text-align: center;

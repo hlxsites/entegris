@@ -24,7 +24,13 @@ export default async function decorate(block) {
     const logoImagePath = logoLink.textContent;
     const logoImage = document.createElement('img');
     logoImage.src = logoImagePath;
+    logoImage.alt = 'Logo';
     logoLink.replaceChildren(logoImage);
+
+    const socials = footer.querySelectorAll('social a');
+    socials.forEach(a => {
+      a.setAttribute('aria-label', 'Social');
+    });
 
     decorateIcons(footer);
     block.append(footer);

@@ -27,6 +27,7 @@ export default async function decorate(block) {
     const logoImagePath = logoLink.textContent;
     const logoImage = document.createElement('img');
     logoImage.src = logoImagePath;
+    logoImage.alt = 'Logo';
     logoLink.replaceChildren(logoImage);
 
     block.append(logo);
