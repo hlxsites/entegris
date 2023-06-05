@@ -352,7 +352,32 @@ async function assembleMobileMenu() {
     class: 'tools'
   }, 'Tools', mobileMenu);
 
+  const mobileSearchMenu = createEl('div', {
+    id: 'mobile-search'
+  }, '', mobileMenu);
 
+  const mobileSearchForm = createEl('form', {
+    action: 'https://poco.entegris.com/content/microsite-live/poco-live/en/home/search.html',
+    method: 'GET',
+    id: 'mobile-search-form',
+    name: 'mobile-search-form'
+  }, '', mobileSearchMenu);
+
+  const mobileSearchField = createEl('input', {
+    type: 'text',
+    name: 'q',
+    autocomplete: 'off',
+    id: 'mobile-search-input',
+    placeholder: 'Search keywords...',
+    maxlength: 64
+  }, '', mobileSearchForm);
+
+  const mobileSearchButton = createEl('input', {
+    type: 'submit',
+    name: 'q',
+    autocomplete: 'off',
+    id: 'mobile-search-button'
+  }, '', mobileSearchForm);
 }
 
 /**
