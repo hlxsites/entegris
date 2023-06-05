@@ -230,7 +230,7 @@
   --background-color: #fff;
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
-  --text-color: #000;
+  --text-color: #393630;
   --body-font-family: "Open Sans", Helvetica, Arial, sans-serif;
   --heading-font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
   --fixed-font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
@@ -756,6 +756,7 @@ main .section p {
 }
 main .section p strong {
   font-weight: 600;
+  color: #0A0A0A;
 }
 main .section.highlight {
   background-color: var(--highlight-background-color);

@@ -1,4 +1,7 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import {
+  readBlockConfig,
+  decorateIcons
+} from '../../scripts/lib-franklin.js';
 
 /**
  * loads and decorates the footer
@@ -27,9 +30,15 @@ export default async function decorate(block) {
     logoImage.alt = 'Logo';
     logoLink.replaceChildren(logoImage);
 
-    const socials = footer.querySelectorAll('social a');
+    const socials = footer.querySelectorAll('.social a');
     socials.forEach(a => {
-      a.setAttribute('aria-label', 'Social');
+      let iconName;
+      for (const c of a.querySelector('span')?.classList) {
+        if (c.includes('-')) {
+          iconName = c.substring(c.indexOf('-') + 1);
+        }
+      }
+      a.setAttribute('aria-label', iconName);
     });
 
     decorateIcons(footer);

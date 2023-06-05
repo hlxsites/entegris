@@ -106,17 +106,18 @@ export function createEl(name, attributes = {}, content, parentEl) {
 }
 
 async function assembleMegaMenu() {
-  const megaMenuContainer = document.createElement('div');
-  megaMenuContainer.id = 'mega-menu-container';
-  document.querySelector('body').append(megaMenuContainer);
 
-  const firstLevelMenusContainer = document.createElement('div');
-  firstLevelMenusContainer.id = 'first-level-rail';
-  megaMenuContainer.append(firstLevelMenusContainer);
+  const megaMenuContainer = createEl('div', {
+    id: 'mega-menu-container'
+  }, '', document.body);
 
-  const collapsableContainer = document.createElement('div');
-  collapsableContainer.id = 'collapsable-container';
-  megaMenuContainer.append(collapsableContainer);
+  const firstLevelMenusContainer = createEl('div', {
+    id: 'first-level-rail'
+  }, '', megaMenuContainer);
+
+  const collapsableContainer = createEl('div', {
+    id: 'collapsable-container'
+  }, '', megaMenuContainer);
 
   const menuButtonBar = document.createElement('div');
   menuButtonBar.id = 'menu-button-bar';
@@ -167,6 +168,7 @@ async function assembleMegaMenu() {
     const icon = section.querySelector(':scope > a');
     firstLevelMenusContainer.append(icon);
     icon.id = icon.dataset.icons;
+    icon.href = '#';
 
     icon.addEventListener('click', (e) => {
       closeLastLevel();
@@ -196,7 +198,7 @@ async function assembleMegaMenu() {
       firstFlyoutPanel.querySelectorAll('.item-list:not(#more)')?.forEach(menu => {
         const menuNode = menu.cloneNode(true); //This wont work... need to parse the nodes
         menuNode.style.display = 'flex';
-        secondLevelItemList.append(menuNode);
+        //secondLevelItemList.append(menuNode);
       });
 
       firstFlyoutPanel.append(secondLevelItemList);
