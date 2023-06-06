@@ -8,7 +8,7 @@ export default async function decorate(block) {
     const links = block.querySelectorAll('a');
     links.forEach(link => {
         const parentNode = link.parentNode;
-        if(parentNode.nodeName !== 'P') {
+        if (parentNode.nodeName !== 'P') {
             const p = document.createElement('p');
             p.appendChild(link);
             parentNode.replaceChildren(p);
@@ -22,5 +22,13 @@ export default async function decorate(block) {
             desc.textContent = entry.description;
             link.replaceChildren(title, desc);
         }
-    })
+    });
+    
+        const columns = block.querySelectorAll('div:has(>.button-container)');
+
+        if (columns.length == 2) {
+            const links = block.querySelectorAll('.button-container')?.forEach(link => {
+                link.classList.add('tall');
+            });
+        }
 }

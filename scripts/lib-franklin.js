@@ -633,7 +633,7 @@ export async function getIndex() {
       sessionStorage.setItem('index', indexJSON);
     } catch (error) {
       console.error('Fetching Index failed', error);
-    } 
+    }
   }
   return JSON.parse(indexJSON);
 }

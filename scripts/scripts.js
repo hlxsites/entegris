@@ -347,14 +347,30 @@ async function assembleMobileMenu() {
     class: 'search'
   }, 'Search', mobileMenu);
 
+  const mobileSearchMenu = createEl('div', {
+    id: 'mobile-search'
+  }, '', mobileMenu);
+
+  search.addEventListener('click', () => {
+    (mobileSearchMenu.classList.contains('showing')) ?
+      mobileSearchMenu.classList.remove('showing') :
+      mobileSearchMenu.classList.add('showing');
+  });
+
   const tools = createEl('a', {
     href: '#',
     class: 'tools'
   }, 'Tools', mobileMenu);
 
-  const mobileSearchMenu = createEl('div', {
-    id: 'mobile-search'
-  }, '', mobileMenu);
+  const toolsMenu = createEl('div', {
+    id: 'tools-menu'
+  }, '', document.body);
+
+  tools.addEventListener('click', () => {
+    (toolsMenu.classList.contains('show-mobile')) ?
+      toolsMenu.classList.remove('show-mobile') :
+      toolsMenu.classList.add('show-mobile');
+  });
 
   const mobileSearchForm = createEl('form', {
     action: 'https://poco.entegris.com/content/microsite-live/poco-live/en/home/search.html',
@@ -378,6 +394,52 @@ async function assembleMobileMenu() {
     autocomplete: 'off',
     id: 'mobile-search-button'
   }, '', mobileSearchForm);
+
+  function assembleToolsMenu() {
+    const contactUs = createEl('a', {
+      id: 'contact-us-tool',
+      href: 'https://poco.entegris.com/en/home/about-us/contact-us.html'
+    }, 'Contact Us', toolsMenu);
+
+    const careers = createEl('a', {
+      id: 'careers-tool',
+      href: 'https://www.entegris.com/careers'
+    }, 'Careers', toolsMenu);
+
+    const search = createEl('a', {
+      id: 'search-tool',
+      href: '#'
+    }, 'Search', toolsMenu);
+
+    const searchFlyout = createEl('div', {
+      id: 'search-flyout',
+    }, '', toolsMenu);
+
+    search.addEventListener('click', () => {
+      (searchFlyout.classList.contains('showing')) ?
+      searchFlyout.classList.remove('showing') :
+      searchFlyout.classList.add('showing');
+    });
+
+    searchFlyout.innerHTML = `
+      <div class="button-row"><a href="#">✕</a></div>
+      <div class="title-row">
+        <img src="https://poco.entegris.com/content/dam/web/ux/global/navigation/utility/Search_1x_Grey.svg" alt="search"/>
+        Search
+      </div>
+      <form action="https://poco.entegris.com/content/microsite-live/poco-live/en/home/search.html" method="get" name="search_form" id="search-form">
+        <input type="text" autocomplete="off" class="search-input" id="tools-search-input" aria-label="Enter text to search" placeholder="Search keywords..." maxlength="64"/>
+        <input type="submit" value="Search" class="tools-search-button" id="tools-search-button">
+      </form>
+    `;
+
+    searchFlyout.querySelector('.button-row a').addEventListener('click', () => {
+      (searchFlyout.classList.contains('showing')) ?
+        searchFlyout.classList.remove('showing') :
+        searchFlyout.classList.add('showing');
+    });
+  }
+  assembleToolsMenu();
 }
 
 /**

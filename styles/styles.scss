@@ -654,7 +654,7 @@ body {
     }
 
     #mobile-search {
-        display: flex;
+        display: none;
         align-items: center;
         position: fixed;
         width: 100%;
@@ -666,14 +666,18 @@ body {
             display: none;
         }
 
+        &.showing {
+            display: flex;
+        }
+
         form {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-                        
+
             input {
-                
+                background-color: #fff;
             }
 
             #mobile-search-input {
@@ -683,7 +687,6 @@ body {
                 font-size: 13px;
                 padding: 11px;
                 color: #0a0a0a;
-                background-color: #fff;
                 border: 1px solid #edecea;
                 border-radius: 3px;
                 outline: none;
@@ -700,12 +703,160 @@ body {
                 font-weight: 50;
                 color: transparent;
                 margin-left: 16px;
-                background-color: #fff;
                 background-image: url(https://poco.entegris.com/static/assets/images/Search-Submit.svg);
                 background-size: cover;
                 padding: 0;
                 background-size: cover;
                 border: 0;
+            }
+        }
+    }
+}
+
+#tools-menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    right: 0;
+    top: 100vh;
+    z-index: 100;
+    height: 100vh;
+    width: 78px;
+    padding-top: 16px;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    opacity: 0;
+    transition: top 0.4s linear, opacity 0.5s linear;
+    background-color: #2a6a83;
+    row-gap: 35px;
+
+    @media (min-width: 900px) {
+        justify-content: center;
+        padding-top: 0;
+        top: 30px;
+        height: 237px;
+        opacity: 1;
+
+    }
+
+    &.show-mobile {
+        top: 0;
+        opacity: 1;
+    }
+
+    &>a {
+        display: block;
+        width: 94px;
+        padding-top: 30px;
+        color: #fff;
+        font-size: 10.5px;
+        text-decoration: none;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-image: url(/icons/sprite.svg);
+        background-position-x: 50%;
+    }
+
+    #contact-us-tool {
+        background-position-y: -52px;
+    }
+
+    #careers-tool {
+        background-position-y: -1772px;
+    }
+
+    #search-tool {
+        display: none;
+        background-position-y: -1668px;
+
+        @media (min-width: 900px) {
+            display: block;
+        }
+    }
+
+    #search-flyout {
+        position: fixed;
+        top: 30px;
+        right: 100vw;
+        display: none;
+        flex-direction: column;
+        height: 350px;
+        width: 660px;
+        background-color: white;
+        opacity: 0;
+        transition: right 0.4s linear, opacity 0.5s linear;
+
+    
+        &.showing {
+            display: flex;
+            border: 2px solid #ece9e7;
+            right: 78px;
+            opacity: 1;
+        }
+
+        .button-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background-color: #f7f5f5;
+            border-bottom: 2px solid #ece9e7;
+            color: #b31a1b;
+            padding: 0 20px 0;
+            height: 50px;
+
+            a {
+                text-decoration: none;
+
+                &:hover {
+                    color: inherit;
+                }                
+            }
+        }
+
+        .title-row {
+            color: #7f7773;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            column-gap: 10px;
+            padding: 0 20px 0;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 20px;
+            padding-top: 12px;
+    
+            input { 
+                height: 45px;
+                padding: 0;
+                outline: 0;
+                border-radius: 3px;
+                font-family: "Open Sans", Helvetica, Arial, sans-serif;
+            }
+
+            #tools-search-input {
+                width: 425px;
+                padding-left: 12px;
+                font-size: 14px;
+                font-style: italic;
+                background-color: #fbfbf9;
+                border: 1px solid #a9a6a2;
+            }
+
+            #tools-search-button {
+                font-family: "Open Sans Condensed", Helvetica, Arial, sans-serif;
+                font-size: 16px;
+                color: #a9a6a2;
+                background-color: #fff;
+                border: 1px solid #a9a6a2;
+                width: 165px;
+                text-transform: uppercase;
+                font-weight: 700;
             }
         }
     }

@@ -47,6 +47,11 @@ main .links-container .links-wrapper .links > div > div {
     min-width: 50%;
   }
 }
+@media (min-width: 900px) {
+  main .links-container .links-wrapper .links .button-container.tall {
+    min-height: 195px;
+  }
+}
 main .links-container .links-wrapper .links p:has(a) {
   border: 1px solid #e8e8e8;
   padding: 25px;

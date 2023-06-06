@@ -52,6 +52,12 @@ main {
                     }
                 }
 
+                @media (min-width: 900px) {
+                    .button-container.tall {
+                        min-height: 195px;
+                    }
+                }
+
                 p:has(a) {
                     border: 1px solid #e8e8e8;
                     padding: 25px;
