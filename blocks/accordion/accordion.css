@@ -1,0 +1,96 @@
+main .accordion-container .accordion-wrapper {
+  padding: 15px;
+}
+main .accordion-container .accordion-wrapper .accordion {
+  color: #0a0a0a;
+}
+main .accordion-container .accordion-wrapper .accordion h2 {
+  font-size: 29px;
+  font-family: "Trade Gothic LT Std", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 40px;
+}
+@media (min-width: 900px) {
+  main .accordion-container .accordion-wrapper .accordion h2 {
+    font-size: 59px;
+  }
+}
+main .accordion-container .accordion-wrapper .accordion h2::after {
+  content: "";
+  height: 4px;
+  width: 75px;
+  background: #b31a1b;
+  display: block;
+  margin-top: 0.2rem;
+}
+main .accordion-container .accordion-wrapper .accordion h3 {
+  position: relative;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: #393630;
+  background-color: #fbfbf9;
+  padding: 16px;
+  border-radius: 3px;
+}
+main .accordion-container .accordion-wrapper .accordion h3.showing {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+main .accordion-container .accordion-wrapper .accordion h3::after {
+  color: #000;
+  border-right: 1px solid currentcolor;
+  border-bottom: 1px solid currentcolor;
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  right: 30px;
+  transform: rotate(45deg);
+}
+main .accordion-container .accordion-wrapper .accordion h3.showing::after {
+  transform: rotate(-135deg);
+}
+@media (min-width: 900px) {
+  main .accordion-container .accordion-wrapper .accordion h3 {
+    font-size: 18px;
+    border: 0;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 15px 0 15px;
+    background-color: #fff;
+  }
+  main .accordion-container .accordion-wrapper .accordion h3.showing {
+    display: flex;
+    border-bottom: 2px solid #000;
+  }
+  main .accordion-container .accordion-wrapper .accordion h3 > * {
+    padding: 0;
+  }
+}
+main .accordion-container .accordion-wrapper .accordion .grouping {
+  display: none;
+  flex-direction: column;
+  border-width: 0 1px 1px;
+  border-style: solid;
+  border-color: #393630;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+main .accordion-container .accordion-wrapper .accordion .grouping > * {
+  padding: 0 33px 0;
+}
+@media (min-width: 900px) {
+  main .accordion-container .accordion-wrapper .accordion .grouping {
+    border: 0;
+    border-bottom: 1px solid #e6e6e6;
+  }
+  main .accordion-container .accordion-wrapper .accordion .grouping > * {
+    padding: 0;
+  }
+}
+main .accordion-container .accordion-wrapper .accordion .grouping.showing {
+  display: flex;
+}

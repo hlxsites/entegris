@@ -162,10 +162,10 @@ async function assembleMegaMenu() {
     }
   });
 
-  const mainSections = megaMenuData?.querySelector('#finder')?.querySelectorAll('.icon-bar > .icon_middle');
-  const extraSections = megaMenuData?.querySelector('.multi-tier-container > .icon-bar')?.querySelectorAll('.icon_middle');
-  [...mainSections, ...extraSections].forEach(section => {
-    const icon = section.querySelector(':scope > a');
+  const mainDataSections = megaMenuData?.querySelector('#finder')?.querySelectorAll('.icon-bar > .icon_middle');
+  const extraDataSections = megaMenuData?.querySelector('.multi-tier-container > .icon-bar')?.querySelectorAll('.icon_middle');
+  [...mainDataSections, ...extraDataSections].forEach(dataSection => {
+    const icon = dataSection.querySelector(':scope > a');
     firstLevelMenusContainer.append(icon);
     icon.id = icon.dataset.icons;
     icon.href = '#';
@@ -192,8 +192,6 @@ async function assembleMegaMenu() {
       secondLevelItemList.append(siteLinks);
       firstFlyoutPanel.append(secondLevelItemList);
     } else if (icon.id === 'more-icon') {
-      // const siteLinks = megaMenuData.querySelector('.site-links');
-      // secondLevelItemList.append(siteLinks);
       secondLevelItemList.id = 'more';
       firstFlyoutPanel.querySelectorAll('.item-list:not(#more)')?.forEach(menu => {
         const menuNode = menu.cloneNode(true); //This wont work... need to parse the nodes
@@ -203,24 +201,73 @@ async function assembleMegaMenu() {
 
       firstFlyoutPanel.append(secondLevelItemList);
 
-    } else {
-      const subSections = section?.querySelectorAll('.icon_middle > ul > li');
-      subSections?.forEach(subSection => {
+    } else if (icon.id === 'products') { //Need to treat Products slightly different than the other Sections
+      const subDataSections = dataSection?.querySelectorAll('.icon_middle > ul > li');
+      subDataSections?.forEach(subDataSection => {
 
         const secondLevelItem = document.createElement('a');
-        secondLevelItem.href = subSection.dataset.url;
-        secondLevelItem.textContent = subSection.querySelector('p')?.textContent;
+        secondLevelItem.href = subDataSection.dataset.url;
+        secondLevelItem.textContent = subDataSection.querySelector('p')?.textContent;
+        secondLevelItem.addEventListener('click', (e) => {
+          if (loadNextLevel(secondLevelItem.id)) {
+            console.log('isDesktop', isDesktop)
+            if (!isDesktop) {
+              closeButton.style.display = 'none';
+              backButton.style.display = 'inline';
+              firstFlyoutPanel.classList.add('collapsed');
+            }
+            e.preventDefault();
+          }
+        });
 
-        const subSubSections = subSection.querySelectorAll(':scope > ul > li');
-        if (subSubSections?.length > 0) {
+        const subSubDataSections = subDataSection.querySelectorAll(':scope > ul > li');
+
+        secondLevelItemList.append(secondLevelItem);
+
+        if (subSubDataSections?.length > 0) {
+          secondLevelItem.classList.add('has-children');
+          const thirdLevelItemList = createEl('div', {
+            class: 'item-list'
+          }, '', secondFlyoutPanel);
+          thirdLevelItemList.dataset.belongsTo = secondLevelItem.id;
+          subSubDataSections.forEach(subSubDataSection => {
+            console.log(subSubDataSection);
+            let thirdLevelItem = createEl('a', {
+              href: `https://poco.entegris.com${subSubDataSection.dataset.url}`
+            }, subSubDataSection.querySelector('p')?.textContent, thirdLevelItemList);
+          });
+
+          if (subSubDataSections?.length > 0) {
+            const thirdLevelHeaderItem = secondLevelItem.cloneNode(true);
+            secondLevelItem.id = `${subDataSection.dataset.key}_item`; //Set the Id *after* it's cloned
+            thirdLevelHeaderItem.classList.add('header');
+            thirdLevelItemList.prepend(thirdLevelHeaderItem);
+            thirdLevelItemList.dataset.belongsTo = secondLevelItem.id;
+          }
+
+          secondFlyoutPanel.append(thirdLevelItemList);
+        }
+
+        firstFlyoutPanel.append(secondLevelItemList);
+      });
+    } else {
+      const subDataSections = dataSection?.querySelectorAll('.icon_middle > ul > li');
+      subDataSections?.forEach(subDataSection => {
+
+        const secondLevelItem = document.createElement('a');
+        secondLevelItem.href = subDataSection.dataset.url;
+        secondLevelItem.textContent = subDataSection.querySelector('p')?.textContent;
+
+        const subSubDataSections = subDataSection.querySelectorAll(':scope > ul > li');
+        if (subSubDataSections?.length > 0) {
           secondLevelItem.classList.add('header');
         }
 
         secondLevelItemList.append(secondLevelItem);
 
-        subSubSections?.forEach(subSubSection => {
+        subSubDataSections?.forEach(subSubDataSection => {
           const secondLevelSubItem = document.createElement('a');
-          secondLevelSubItem.href = subSubSection.dataset.url;
+          secondLevelSubItem.href = subSubDataSection.dataset.url;
           secondLevelSubItem.addEventListener('click', (e) => {
             if (loadNextLevel(secondLevelSubItem.id)) {
               console.log('isDesktop', isDesktop)
@@ -233,26 +280,26 @@ async function assembleMegaMenu() {
             }
           });
 
-          secondLevelSubItem.textContent = subSubSection.querySelector('p')?.textContent;
+          secondLevelSubItem.textContent = subSubDataSection.querySelector('p')?.textContent;
 
           const thirdLevelItemList = document.createElement('div');
           thirdLevelItemList.classList.add('item-list');
           thirdLevelItemList.dataset.belongsTo = secondLevelItem.id;
 
-          const subSubSubSections = subSubSection.querySelectorAll(':scope > ul > li');
+          const subSubSubDataSections = subSubDataSection.querySelectorAll(':scope > ul > li');
 
           secondLevelItemList.append(secondLevelSubItem);
 
-          subSubSubSections?.forEach(subSubSubSection => {
+          subSubSubDataSections?.forEach(subSubSubDataSection => {
             const thirdLevelItem = document.createElement('a');
-            thirdLevelItem.href = subSubSubSection.dataset.url;
-            thirdLevelItem.textContent = subSubSubSection.querySelector('p')?.textContent;
+            thirdLevelItem.href = subSubSubDataSection.dataset.url;
+            thirdLevelItem.textContent = subSubSubDataSection.querySelector('p')?.textContent;
             thirdLevelItemList.append(thirdLevelItem);
           });
-          if (subSubSubSections?.length > 0) {
+          if (subSubSubDataSections?.length > 0) {
             secondLevelSubItem.classList.add('has-children');
             const thirdLevelHeaderItem = secondLevelSubItem.cloneNode(true);
-            secondLevelSubItem.id = `${subSubSection.dataset.key}_item`; //Set the Id *after* it's cloned
+            secondLevelSubItem.id = `${subSubDataSection.dataset.key}_item`; //Set the Id *after* it's cloned
             thirdLevelHeaderItem.classList.add('header');
             thirdLevelItemList.prepend(thirdLevelHeaderItem);
             thirdLevelItemList.dataset.belongsTo = secondLevelSubItem.id;
@@ -265,6 +312,7 @@ async function assembleMegaMenu() {
         firstFlyoutPanel.append(secondLevelItemList);
       });
     }
+
   });
 
   closeButton.addEventListener('click', (e) => {
@@ -417,8 +465,8 @@ async function assembleMobileMenu() {
 
     search.addEventListener('click', () => {
       (searchFlyout.classList.contains('showing')) ?
-      searchFlyout.classList.remove('showing') :
-      searchFlyout.classList.add('showing');
+        searchFlyout.classList.remove('showing') :
+        searchFlyout.classList.add('showing');
     });
 
     searchFlyout.innerHTML = `

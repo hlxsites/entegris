@@ -5,7 +5,7 @@ main {
 
         .links-wrapper {
             padding: 0;
-            margin: 40px auto 40px;
+            margin: 20px auto 20px;
 
             .links {
 
@@ -26,9 +26,6 @@ main {
                         width: 20px;
                         background: #393630;
                         display: block;
-                        -webkit-transition: width 1s ease-in-out;
-                        -o-transition: width 1s ease-in-out;
-                        transition: width 1s ease-in-out;
                         margin-top: 0.2rem;
                     }
                 }

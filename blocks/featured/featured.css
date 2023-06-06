@@ -36,7 +36,7 @@
   border: 1px solid #cfcece;
   background-color: #f7f5f5;
   background-size: cover;
-  margin: 0 15px 20px;
+  margin: 0 0 20px;
 }
 @media (min-width: 900px) {
   .featured-container .featured-wrapper {

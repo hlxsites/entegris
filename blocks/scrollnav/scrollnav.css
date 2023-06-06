@@ -1,0 +1,27 @@
+main .scrollnav-container {
+  padding: 0;
+}
+main .scrollnav-container .scrollnav-wrapper {
+  display: flex;
+  min-width: 100%;
+}
+main .scrollnav-container .scrollnav-wrapper .scrollnav {
+  display: flex;
+  background: #f7f5f5;
+  position: relative;
+  width: 100%;
+  padding-top: 50px;
+}
+@media (min-width: 900px) {
+  main .scrollnav-container .scrollnav-wrapper .scrollnav {
+    align-items: center;
+    justify-content: center;
+  }
+}
+main .scrollnav-container .scrollnav-wrapper .scrollnav a {
+  color: #72706d;
+  padding: 10px;
+}
+main .scrollnav-container .scrollnav-wrapper .scrollnav a:hover {
+  color: #b31a1b;
+}
