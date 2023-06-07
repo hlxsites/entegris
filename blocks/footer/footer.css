@@ -1,3 +1,11 @@
+footer {
+  margin-bottom: 60px;
+}
+@media (min-width: 900px) {
+  footer {
+    margin-bottom: 0;
+  }
+}
 footer .footer {
   display: flex;
   flex-direction: column;
@@ -35,6 +43,19 @@ footer .footer > div > div {
 footer .footer > div > div:first-of-type {
   padding-top: 30px;
 }
+footer .footer > div > div:has(.site-links) {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: baseline;
+}
+@media (min-width: 900px) {
+  footer .footer > div > div:has(.site-links) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 @media (min-width: 900px) {
   footer .footer > div > div {
     width: 1000px;
@@ -44,6 +65,7 @@ footer .footer > div > div:first-of-type {
   }
 }
 footer .footer > div > div .logo {
+  height: 69px;
   width: 100px;
 }
 footer .footer > div > div .contact p {
@@ -94,7 +116,14 @@ footer .footer > div > div .social {
     width: 25%;
   }
 }
-footer .footer > div > div .social div {
+@media (min-width: 900px) {
+  footer .footer > div > div .social > div {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+footer .footer > div > div .social > div div {
   display: flex;
   column-gap: 20px;
 }

@@ -4,6 +4,7 @@
     font-style: normal;
     src: url(./fonts/slick.eot);
     src: url(./fonts/slick.eot?#iefix) format('embedded-opentype'), url(./fonts/slick.woff) format('woff'), url(./fonts/slick.ttf) format('truetype'), url(./fonts/slick.svg#slick) format('svg');
+    font-display: swap;
 }
 
 /*! normalize-scss | MIT/GPLv2 License | bit.ly/normalize-scss */
@@ -13,6 +14,7 @@
     src: url(/fonts/OpenSans.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans.woff) format("woff"), url(/fonts/OpenSans.ttf) format("truetype");
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -21,6 +23,7 @@
     src: url(/fonts/OpenSans-Light.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-Light.woff) format("woff"), url(/fonts/OpenSans-Light.ttf) format("truetype");
     font-weight: 300;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -29,6 +32,7 @@
     src: url(/fonts/OpenSans-Italic.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-Italic.woff) format("woff"), url(/fonts/OpenSans-Italic.ttf) format("truetype");
     font-weight: 400;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -37,6 +41,7 @@
     src: url(/fonts/OpenSans-BoldItalic.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-BoldItalic.woff) format("woff"), url(/fonts/OpenSans-BoldItalic.ttf) format("truetype");
     font-weight: 700;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -45,6 +50,7 @@
     src: url(/fonts/OpenSansLight-Italic.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSansLight-Italic.woff) format("woff"), url(/fonts/OpenSansLight-Italic.ttf) format("truetype");
     font-weight: 300;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -53,6 +59,7 @@
     src: url(/fonts/OpenSans-Semibold.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-Semibold.woff) format("woff"), url(/fonts/OpenSans-Semibold.ttf) format("truetype");
     font-weight: 600;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -61,6 +68,7 @@
     src: url(/fonts/OpenSans-SemiboldItalic.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-SemiboldItalic.woff) format("woff"), url(/fonts/OpenSans-SemiboldItalic.ttf) format("truetype");
     font-weight: 600;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -69,6 +77,7 @@
     src: url(/fonts/OpenSans-Extrabold.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-Extrabold.woff) format("woff"), url(/fonts/OpenSans-Extrabold.ttf) format("truetype");
     font-weight: 800;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -77,6 +86,7 @@
     src: url(/fonts/OpenSans-ExtraboldItalic.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-ExtraboldItalic.woff) format("woff"), url(/fonts/OpenSans-ExtraboldItalic.ttf) format("truetype");
     font-weight: 800;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -85,6 +95,7 @@
     src: url(/fonts/OpenSans-CondensedLight.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-CondensedLight.woff) format("woff"), url(/fonts/OpenSans-CondensedLight.ttf) format("truetype");
     font-weight: 300;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -93,6 +104,7 @@
     src: url(/fonts/TradeGothicLTStd-Light.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-Light.woff) format("woff"), url(/fonts/TradeGothicLTStd-Light.ttf) format("truetype");
     font-weight: 300;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -101,6 +113,7 @@
     src: url(/fonts/OpenSans-CondensedLightItalic.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-CondensedLightItalic.woff) format("woff"), url(/fonts/OpenSans-CondensedLightItalic.ttf) format("truetype");
     font-weight: 300;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -109,6 +122,7 @@
     src: url(/fonts/OpenSans-CondensedBold.eot?#iefix) format("embedded-opentype"), url(/fonts/OpenSans-CondensedBold.woff) format("woff"), url(/fonts/OpenSans-CondensedBold.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -117,6 +131,7 @@
     src: url(/fonts/TradeGothicLTStd.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd.woff) format("woff"), url(/fonts/TradeGothicLTStd.ttf) format("truetype");
     font-weight: 500;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -125,6 +140,7 @@
     src: url(/fonts/TradeGothicLTStd-Bold.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-Bold.woff) format("woff"), url(/fonts/TradeGothicLTStd-Bold.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -133,6 +149,7 @@
     src: url(/fonts/TradeGothicLTStd-Obl.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-Obl.woff) format("woff"), url(/fonts/TradeGothicLTStd-Obl.ttf) format("truetype");
     font-weight: 500;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -141,6 +158,7 @@
     src: url(/fonts/TradeGothicLTStd-Cn18.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-Cn18.woff) format("woff"), url(/fonts/TradeGothicLTStd-Cn18.ttf) format("truetype");
     font-weight: 500;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -149,6 +167,7 @@
     src: url(/fonts/TradeGothicLTStd-Cn18Obl.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-Cn18Obl.woff) format("woff"), url(/fonts/TradeGothicLTStd-Cn18Obl.ttf) format("truetype");
     font-weight: 500;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -157,6 +176,7 @@
     src: url(/fonts/TradeGothicLTStd-BdCn20.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-BdCn20.woff) format("woff"), url(/fonts/TradeGothicLTStd-BdCn20.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -165,6 +185,7 @@
     src: url(/fonts/TradeGothicLTStd-Bd2.eot?#iefix) format("embedded-opentype"), url(/fonts/TradeGothicLTStd-Bd2.woff) format("woff"), url(/fonts/TradeGothicLTStd-Bd2.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -173,6 +194,7 @@
     src: url(/fonts/museo-sans/museosans-100.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans-100.woff) format("woff"), url(/fonts/museo-sans/museosans-100.ttf) format("truetype");
     font-weight: 100;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -181,6 +203,7 @@
     src: url(/fonts/museo-sans/museosans-100italic.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans-100italic.woff) format("woff"), url(/fonts/museo-sans/museosans-100italic.ttf) format("truetype");
     font-weight: 100;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -189,6 +212,7 @@
     src: url(/fonts/museo-sans/museosans-300.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans-300.woff) format("woff"), url(/fonts/museo-sans/museosans-300.ttf) format("truetype");
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -197,6 +221,7 @@
     src: url(/fonts/museo-sans/museosans-300italic.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans-300italic.woff) format("woff"), url(/fonts/museo-sans/museosans-300italic.ttf) format("truetype");
     font-weight: 400;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -205,6 +230,7 @@
     src: url(/fonts/museo-sans/museosans_500.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans_500.woff) format("woff"), url(/fonts/museo-sans/museosans_500.ttf) format("truetype");
     font-weight: 500;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -213,6 +239,7 @@
     src: url(/fonts/museo-sans/museosans_500_italic.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans_500_italic.woff) format("woff"), url(/fonts/museo-sans/museosans_500_italic.ttf) format("truetype");
     font-weight: 500;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -221,6 +248,7 @@
     src: url(/fonts/museo-sans/museosans_700.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans_700.woff) format("woff"), url(/fonts/museo-sans/museosans_700.ttf) format("truetype");
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -229,6 +257,7 @@
     src: url(/fonts/museo-sans/museosans-700italic.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans-700italic.woff) format("woff"), url(/fonts/museo-sans/museosans-700italic.ttf) format("truetype");
     font-weight: 700;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -237,6 +266,7 @@
     src: url(/fonts/museo-sans/museosans_900.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans_900.woff) format("woff"), url(/fonts/museo-sans/museosans_900.ttf) format("truetype");
     font-weight: 900;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -245,6 +275,7 @@
     src: url(/fonts/museo-sans/museosans-900italic.eot?#iefix) format("embedded-opentype"), url(/fonts/museo-sans/museosans-900italic.woff) format("woff"), url(/fonts/museo-sans/museosans-900italic.ttf) format("truetype");
     font-weight: 900;
     font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -253,6 +284,7 @@
     src: url(/fonts/icons/entegris-ui.eot?#iefix) format("embedded-opentype"), url(/fonts/icons/entegris-ui.woff) format("woff"), url(/fonts/icons/entegris-ui.ttf) format("truetype"), url(/fonts/icons/entegris-ui.svg#entegris-ui) format("svg");
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
 }
 
 :root {

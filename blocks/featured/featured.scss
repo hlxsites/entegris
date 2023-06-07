@@ -2,7 +2,22 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    align-items: center;
     margin-top: 0;
+
+    .default-content-wrapper {
+        margin-top: 0;
+        padding: 0 15px 0;
+
+        @media (min-width: 900px) {
+            grid-area: content;
+            //width: 66%;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+    }
 
     @media (min-width: 900px) {
 
@@ -79,6 +94,7 @@
 
                     img {
                         height: 66px;
+                        width: 52px;
                         margin-right: 20px;
                     }
                 }
