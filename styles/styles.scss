@@ -553,9 +553,7 @@ main {
 
         .button-container {
             a {
-                &.primary {
-                    
-                }
+                &.primary {}
             }
         }
     }
@@ -936,6 +934,23 @@ a {
                     text-transform: uppercase;
                     font-weight: 700;
                     font-size: 16px;
+                }
+
+                .site-links {
+                    .active-site {
+                        font-weight: 600;
+
+                        &::before {
+                            color: #b31a1b;
+                            content: "✓";
+                            position: absolute;
+                            width: 7px;
+                            height: 7px;
+                            left: -20px;
+                            top: 50%;
+
+                        }
+                    }
                 }
             }
         }

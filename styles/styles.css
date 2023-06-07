@@ -761,6 +761,18 @@ a:hover {
   font-weight: 700;
   font-size: 16px;
 }
+#mega-menu-container #collapsable-container #levels-holder .item-list .site-links .active-site {
+  font-weight: 600;
+}
+#mega-menu-container #collapsable-container #levels-holder .item-list .site-links .active-site::before {
+  color: #b31a1b;
+  content: "✓";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  left: -20px;
+  top: 50%;
+}
 @media (min-width: 900px) {
   #mega-menu-container {
     top: 0;
