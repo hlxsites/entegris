@@ -195,7 +195,8 @@ async function assembleMegaMenu() {
   const logoObj = logoLink.removeChild(logoLink.querySelector('.logo'));
   createEl('img', {
     src: 'https://poco.entegris.com/content/dam/web/ux/global/header/entg-poco-ms-header-desktop.svg',
-    class: 'logo'
+    class: 'logo',
+    alt: 'Logo'
   }, '', logoLink);
 
   moreFooter.append(footerLogoLinksData);
