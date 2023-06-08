@@ -28,6 +28,8 @@ export default async function decorate(block) {
     const logoImage = document.createElement('img');
     logoImage.src = logoImagePath;
     logoImage.alt = 'Logo';
+    logoImage.width = 100;
+    logoImage.height = 69;
     logoLink.replaceChildren(logoImage);
 
     const socials = footer.querySelectorAll('.social a');

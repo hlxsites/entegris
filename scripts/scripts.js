@@ -32,24 +32,27 @@ function buildHeroBlock(main) {
       picture2.classList.add('hero-picture');
       if (h1 &&
         (h1.compareDocumentPosition(picture1) & Node.DOCUMENT_POSITION_PRECEDING)) {
+        // Squareness is determined by how close to 0 the value is. The lower the value, the more square...
         const image1 = picture1.querySelector('img');
-        const squareness1 = Math.abs(1- image1.height / image1.width);
+        const width1 = Math.max(image1.height, image1.width); // Making sure we're always using the same ratios
+        const height1 = Math.min(image1.height, image1.width);
+        const squareness1 = Math.abs(1 - height1 / width1);
         const image2 = picture2.querySelector('img');
-        const squareness2 = Math.abs(1- image2.height / image2.width);
+        const width2 = Math.max(image2.height, image2.width);
+        const height2 = Math.min(image2.height, image2.width);
+        const squareness2 = Math.abs(1 - height2 / width2);
         let chosenPicture;
-        if(isDesktop) {
+        if (isDesktop) {
           chosenPicture = (squareness1 >= squareness2) ? picture1 : picture2;
         } else {
           chosenPicture = (squareness1 <= squareness2) ? picture1 : picture2;
         }
-        
         section.append(buildBlock('hero', { elems: [chosenPicture] }));
-        
       }
     } else {
       // eslint-disable-next-line no-bitwise
       if (h1 && picture1 && (h1.compareDocumentPosition(picture1) & Node.DOCUMENT_POSITION_PRECEDING)) {
-        section.append(buildBlock('hero', { elems: [picture1] }));       
+        section.append(buildBlock('hero', { elems: [picture1] }));
       }
     }
     main.prepend(section);
