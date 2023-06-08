@@ -1,3 +1,6 @@
+main .hero-picture:not(.hero .hero-picture) {
+  display: none;
+}
 main .hero-container {
   padding: 0;
 }

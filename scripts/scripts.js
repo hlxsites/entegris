@@ -22,16 +22,37 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  const section = document.createElement('div');
   const h1 = main.querySelector('h1');
   const picture1 = main.querySelector('picture');
   if (picture1) {
+    picture1.classList.add('hero-picture');
     const picture2 = picture1.nextElementSibling;
-    // eslint-disable-next-line no-bitwise
-    if (h1 && picture1 && (h1.compareDocumentPosition(picture1) & Node.DOCUMENT_POSITION_PRECEDING)) {
-      const section = document.createElement('div');
-      section.append(buildBlock('hero', { elems: [picture1] }));
-      main.prepend(section);
+    if (picture2 && picture2.tagName === 'PICTURE') {
+      picture2.classList.add('hero-picture');
+      if (h1 &&
+        (h1.compareDocumentPosition(picture1) & Node.DOCUMENT_POSITION_PRECEDING)) {
+        const image1 = picture1.querySelector('img');
+        const squareness1 = Math.abs(1- image1.height / image1.width);
+        const image2 = picture2.querySelector('img');
+        const squareness2 = Math.abs(1- image2.height / image2.width);
+        let chosenPicture;
+        if(isDesktop) {
+          chosenPicture = (squareness1 >= squareness2) ? picture1 : picture2;
+        } else {
+          chosenPicture = (squareness1 <= squareness2) ? picture1 : picture2;
+        }
+        
+        section.append(buildBlock('hero', { elems: [chosenPicture] }));
+        
+      }
+    } else {
+      // eslint-disable-next-line no-bitwise
+      if (h1 && picture1 && (h1.compareDocumentPosition(picture1) & Node.DOCUMENT_POSITION_PRECEDING)) {
+        section.append(buildBlock('hero', { elems: [picture1] }));       
+      }
     }
+    main.prepend(section);
   }
 }
 
