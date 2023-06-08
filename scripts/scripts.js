@@ -23,12 +23,15 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture] }));
-    main.prepend(section);
+  const picture1 = main.querySelector('picture');
+  if (picture1) {
+    const picture2 = picture1.nextElementSibling;
+    // eslint-disable-next-line no-bitwise
+    if (h1 && picture1 && (h1.compareDocumentPosition(picture1) & Node.DOCUMENT_POSITION_PRECEDING)) {
+      const section = document.createElement('div');
+      section.append(buildBlock('hero', { elems: [picture1] }));
+      main.prepend(section);
+    }
   }
 }
 
@@ -107,6 +110,8 @@ export function createEl(name, attributes = {}, content, parentEl) {
 
 async function assembleMegaMenu() {
 
+  const megaMenuData = await getMegaMenuData();
+
   const megaMenuContainer = createEl('div', {
     id: 'mega-menu-container'
   }, '', document.body);
@@ -140,6 +145,41 @@ async function assembleMegaMenu() {
   levelsHolder.id = 'levels-holder';
   collapsableContainer.append(levelsHolder);
 
+
+  //** more footer start */
+  const moreFooter = createEl('div', {
+    id: 'more-footer'
+  }, '', collapsableContainer);
+
+  const footerSocialData = megaMenuData.querySelector('.more-footer .social-icons');
+  footerSocialData.querySelectorAll('img').forEach(image => {
+    const src = image.getAttribute('src');
+    if (src.startsWith('/')) {
+      image.setAttribute('src', `https://poco.entegris.com${src}`);
+    }
+  });
+
+  const moreFooterSocial = createEl('div', {
+    id: 'more-footer-social'
+  }, footerSocialData, moreFooter);
+
+  const footerLogoLinksData = megaMenuData.querySelector('.more-footer .logo-right');
+  footerLogoLinksData.querySelectorAll('a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href.startsWith('/')) {
+      link.setAttribute('href', `https://poco.entegris.com${href}`);
+    }
+  });
+  const logoLink = footerLogoLinksData.querySelector('.logo-link');
+  const logoObj = logoLink.removeChild(logoLink.querySelector('.logo'));
+  createEl('img', {
+    src: 'https://poco.entegris.com/content/dam/web/ux/global/header/entg-poco-ms-header-desktop.svg',
+    class: 'logo'
+  }, '', logoLink);
+
+  moreFooter.append(footerLogoLinksData);
+  //** more footer end */
+
   const firstFlyoutPanel = document.createElement('div');
   firstFlyoutPanel.id = 'second-level-flyout';
   firstFlyoutPanel.classList.add('menus-container');
@@ -150,8 +190,6 @@ async function assembleMegaMenu() {
   secondFlyoutPanel.classList.add('menus-container');
   levelsHolder.append(secondFlyoutPanel);
 
-  const megaMenuData = await getMegaMenuData();
-  console.log('menu', megaMenuData);
   const multiTierNav = megaMenuData.querySelector('.multi-tier-container');
 
   // TODO: Move this logic to a decorateRelativeLinks function
@@ -187,17 +225,24 @@ async function assembleMegaMenu() {
     secondLevelItemList.classList.add('item-list');
     secondLevelItemList.dataset.belongsTo = icon.id;
 
+    const itemListHeader = createEl('div', {
+      class: 'item-list-header'
+    }, icon.querySelector('span').textContent, secondLevelItemList);
+
     if (icon.id === 'our-sites') {
       const siteLinks = megaMenuData.querySelector('.site-links');
       secondLevelItemList.append(siteLinks);
       firstFlyoutPanel.append(secondLevelItemList);
     } else if (icon.id === 'more-icon') {
-      secondLevelItemList.id = 'more';
-      firstFlyoutPanel.querySelectorAll('.item-list:not(#more)')?.forEach(menu => {
-        const menuNode = menu.cloneNode(true); //This wont work... need to parse the nodes
-        menuNode.style.display = 'flex';
-        //secondLevelItemList.append(menuNode);
-      });
+      // secondLevelItemList.id = 'more';
+      // firstFlyoutPanel.querySelectorAll('.item-list')?.forEach(menu => {
+      //   if (menu.dataset.belongsTo !== 'our-sites') {
+      //     console.log(menu)
+      //     const menuNode = menu.cloneNode(true); //This wont work... need to parse the nodes
+      //     menuNode.style.display = 'flex';
+      //     secondLevelItemList.append(menuNode);
+      //   }
+      // });
 
       firstFlyoutPanel.append(secondLevelItemList);
 
@@ -210,7 +255,6 @@ async function assembleMegaMenu() {
         secondLevelItem.textContent = subDataSection.querySelector('p')?.textContent;
         secondLevelItem.addEventListener('click', (e) => {
           if (loadNextLevel(secondLevelItem.id)) {
-            console.log('isDesktop', isDesktop)
             if (!isDesktop) {
               closeButton.style.display = 'none';
               backButton.style.display = 'inline';
@@ -231,7 +275,6 @@ async function assembleMegaMenu() {
           }, '', secondFlyoutPanel);
           thirdLevelItemList.dataset.belongsTo = secondLevelItem.id;
           subSubDataSections.forEach(subSubDataSection => {
-            console.log(subSubDataSection);
             let thirdLevelItem = createEl('a', {
               href: `https://poco.entegris.com${subSubDataSection.dataset.url}`
             }, subSubDataSection.querySelector('p')?.textContent, thirdLevelItemList);
@@ -259,24 +302,31 @@ async function assembleMegaMenu() {
         secondLevelItem.textContent = subDataSection.querySelector('p')?.textContent;
 
         const subSubDataSections = subDataSection.querySelectorAll(':scope > ul > li');
+        let itemListDivider;
         if (subSubDataSections?.length > 0) {
+          if (itemListDivider) {
+            secondLevelItemList.append(itemListDivider);
+          }
           secondLevelItem.classList.add('header');
         }
+        itemListDivider = createEl('div', {
+          class: 'item-list-divider'
+        }, '', secondLevelItemList);
 
-        secondLevelItemList.append(secondLevelItem);
+        itemListDivider.append(secondLevelItem);
 
         subSubDataSections?.forEach(subSubDataSection => {
           const secondLevelSubItem = document.createElement('a');
           secondLevelSubItem.href = subSubDataSection.dataset.url;
           secondLevelSubItem.addEventListener('click', (e) => {
             if (loadNextLevel(secondLevelSubItem.id)) {
-              console.log('isDesktop', isDesktop)
               if (!isDesktop) {
                 closeButton.style.display = 'none';
                 backButton.style.display = 'inline';
                 firstFlyoutPanel.classList.add('collapsed');
               }
-              e.preventDefault();
+              if (!secondLevelSubItem.closest('.full'))
+                e.preventDefault();
             }
           });
 
@@ -288,7 +338,7 @@ async function assembleMegaMenu() {
 
           const subSubSubDataSections = subSubDataSection.querySelectorAll(':scope > ul > li');
 
-          secondLevelItemList.append(secondLevelSubItem);
+          itemListDivider.append(secondLevelSubItem);
 
           subSubSubDataSections?.forEach(subSubSubDataSection => {
             const thirdLevelItem = document.createElement('a');
@@ -331,6 +381,7 @@ async function assembleMegaMenu() {
     if (lastShowing?.length > 0) {
       lastShowing[lastShowing.length - 1].classList.remove('showing', 'full');
     }
+    megaMenuContainer.querySelector('#more-footer').classList.remove('showing');
   }
 
   function loadNextLevel(id) {
@@ -344,6 +395,7 @@ async function assembleMegaMenu() {
       menusContainer?.classList.add('showing');
       if (itemList.dataset.belongsTo === 'more-icon') {
         menusContainer?.classList.add('full');
+        megaMenuContainer.querySelector('#more-footer').classList.add('showing');
       }
       itemList.style.display = 'flex';
     }
@@ -544,14 +596,14 @@ export function addFavIcon(href) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
-  await assembleMegaMenu();
-  await assembleMobileMenu();
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+  await assembleMegaMenu();
+  await assembleMobileMenu();
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.png`);

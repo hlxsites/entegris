@@ -677,11 +677,15 @@ a:hover {
   width: 0;
   padding: 0;
 }
-#mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full {
+#mega-menu-container #collapsable-container #levels-holder #second-level-flyout .item-list {
   display: flex;
-  padding: 10px;
-  width: 100vw;
-  transition: width 0.2s linear;
+}
+#mega-menu-container #collapsable-container #levels-holder #second-level-flyout .item-list .item-list-header {
+  display: none;
+}
+#mega-menu-container #collapsable-container #levels-holder #second-level-flyout .item-list .item-list-divider {
+  display: flex;
+  flex-direction: column;
 }
 #mega-menu-container #collapsable-container #levels-holder #second-level-flyout > div {
   display: none;
@@ -710,14 +714,6 @@ a:hover {
   bottom: 7px;
   transform: rotate(-45deg);
   z-index: 100;
-}
-#mega-menu-container #collapsable-container #levels-holder #second-level-flyout #more {
-  display: flex;
-  flex-direction: row;
-}
-#mega-menu-container #collapsable-container #levels-holder #second-level-flyout #more .item-list {
-  display: flex;
-  flex-direction: column;
 }
 #mega-menu-container #collapsable-container #levels-holder #third-level-flyout {
   display: flex;
@@ -750,6 +746,7 @@ a:hover {
   color: #393630;
   font-size: 14px;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  line-height: 15px;
   text-decoration: none;
   cursor: pointer;
 }
@@ -773,6 +770,9 @@ a:hover {
   left: -20px;
   top: 50%;
 }
+#mega-menu-container #collapsable-container #more-footer {
+  display: none;
+}
 @media (min-width: 900px) {
   #mega-menu-container {
     top: 0;
@@ -780,11 +780,90 @@ a:hover {
   #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.showing {
     width: 360px;
   }
+  #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    width: 100% !important;
+    transition: width 0.2s linear;
+  }
+  #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full .item-list {
+    width: 200px;
+  }
+  #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full .item-list .item-list-header {
+    display: block;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #a9a6a2;
+  }
+  #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full .item-list:not([data-belongs-to=our-sites]) {
+    display: flex !important;
+  }
+  #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full .item-list:not([data-belongs-to=our-sites]) a.has-children::after {
+    content: none;
+  }
+  #mega-menu-container #collapsable-container #levels-holder #second-level-flyout.full .item-list[data-belongs-to=more-icon] {
+    display: none !important;
+  }
   #mega-menu-container #collapsable-container #levels-holder #third-level-flyout.showing {
     width: 360px;
   }
   #mega-menu-container #collapsable-container #levels-holder .item-list {
     min-width: 300px;
+  }
+  #mega-menu-container #collapsable-container #more-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 0;
+    overflow-x: hidden;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    transition: width 0.4s linear;
+  }
+  #mega-menu-container #collapsable-container #more-footer.showing {
+    height: 100%;
+    width: inherit;
+    margin-top: 40px;
+    margin-left: 20px;
+    padding-top: 40px;
+    margin-right: 10px;
+    border-top: 1px solid #a9a6a2;
+  }
+  #mega-menu-container #collapsable-container #more-footer .social-icons {
+    display: flex;
+    column-gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #mega-menu-container #collapsable-container #more-footer .logo-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 30px;
+  }
+  #mega-menu-container #collapsable-container #more-footer .logo-right .logo {
+    height: 112px;
+    width: 160px;
+  }
+  #mega-menu-container #collapsable-container #more-footer .logo-right .site-links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    font-size: 12px;
+    column-gap: 15px;
+  }
+  #mega-menu-container #collapsable-container #more-footer .logo-right .site-links li:not(:last-of-type)::after {
+    padding-left: 0.4rem;
+    content: "/";
+    font-size: 11px;
+  }
+  #mega-menu-container #collapsable-container #more-footer .logo-right .site-links li a {
+    color: #000;
   }
 }
 

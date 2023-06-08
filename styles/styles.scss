@@ -838,11 +838,17 @@ a {
                     padding: 0;
                 }
 
-                &.full {
+                .item-list {
                     display: flex;
-                    padding: 10px;
-                    width: 100vw;
-                    transition: width 0.2s linear;
+
+                    .item-list-header {
+                        display: none;
+                    }
+
+                    .item-list-divider {
+                        display: flex;
+                        flex-direction: column;
+                    }
                 }
 
                 &>div {
@@ -875,16 +881,6 @@ a {
                         bottom: 7px;
                         transform: rotate(-45deg);
                         z-index: 100;
-                    }
-                }
-
-                #more {
-                    display: flex;
-                    flex-direction: row;
-
-                    .item-list {
-                        display: flex;
-                        flex-direction: column;
                     }
                 }
             }
@@ -923,6 +919,7 @@ a {
                     color: #393630;
                     font-size: 14px;
                     font-family: "Open Sans", Helvetica, Arial, sans-serif;
+                    line-height: 15px;
                     text-decoration: none;
                     cursor: pointer;
                 }
@@ -954,6 +951,10 @@ a {
                 }
             }
         }
+
+        #more-footer {
+            display: none;
+        }
     }
 
     @media (min-width: 900px) {
@@ -971,6 +972,41 @@ a {
                     &.showing {
                         width: 360px;
                     }
+
+                    &.full {
+                        display: flex;
+                        flex-direction: row;
+                        padding: 10px;
+                        width: 100% !important;
+                        transition: width 0.2s linear;
+
+                        .item-list {
+                            width: 200px;
+
+                            .item-list-header {
+                                display: block;
+                                margin-top: 20px;
+                                margin-left: 20px;
+                                margin-bottom: 20px;
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #a9a6a2;
+                            }
+                        }
+
+                        .item-list:not([data-belongs-to="our-sites"]) {
+                            display: flex !important;
+
+                            a {
+                                &.has-children::after {
+                                    content: none;
+                                }
+                            }
+                        }
+
+                        .item-list[data-belongs-to="more-icon"] {
+                            display: none !important;
+                        }
+                    }
                 }
 
                 #third-level-flyout {
@@ -983,6 +1019,69 @@ a {
                     min-width: 300px;
                 }
 
+            }
+
+            #more-footer {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                height: 0;
+                overflow-x: hidden;
+                width: 0;
+                padding: 0;
+                margin: 0;
+                transition: width 0.4s linear;
+                                
+                &.showing {
+                    height: 100%;
+                    width: inherit;
+                    margin-top: 40px;
+                    margin-left: 20px;
+                    padding-top: 40px;
+                    margin-right: 10px;
+                    border-top: 1px solid #a9a6a2;
+                }
+
+                .social-icons {
+                    display: flex;
+                    column-gap: 10px;
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .logo-right {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    padding-right: 30px;
+
+                    .logo {
+                        height: 112px;
+                        width: 160px;
+                    }
+
+                    .site-links {
+                        display: flex;
+                        list-style-type: none;
+                        padding: 0;
+                        font-size: 12px;
+                        column-gap: 15px;
+
+                        li {
+
+                            &:not(:last-of-type)::after {
+								padding-left: 0.4rem;
+								content: '/';
+								font-size: 11px;
+							}
+                            
+                            a {
+                                color: #000;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
