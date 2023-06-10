@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM } from './lib-franklin.js';
-import { 
-    createEl, 
-    getMetaContentByName 
+import {
+    createEl,
+    getMetaContentByName
 } from './scripts.js';
 
 // Core Web Vitals RUM collection
@@ -173,6 +173,16 @@ loadScript('https://cc.cdn.civiccomputing.com/9/cookieControl-9.8.min.js')
 
 // **End CIVIC CookieControl Script
 
+const pageInstanceID = (() => {
+    const path = location.pathname;
+    let pageInstanceID = 'content-microsite-live-poco-live';
+    for (const part of path.split('/')) {
+        if (part !== '') {
+            pageInstanceID += `-${part}`;
+        }
+    }
+    return pageInstanceID;
+})();
 
 let metaEl = createEl('meta', {
     name: 'digitaldata-hubspotTrackingCode',
@@ -181,17 +191,17 @@ let metaEl = createEl('meta', {
 
 metaEl = createEl('meta', {
     name: 'digitaldata-pageInstanceID',
-    content: 'content-microsite-live-poco-live-en-home-our-science-by-industry-aerospace'
+    content: pageInstanceID
 }, '', headEl);
 
 metaEl = createEl('meta', {
     name: 'digitaldata-pageTitle',
-    content: 'Aerospace'
+    content: document.head.querySelector('title').textContent
 }, '', headEl);
 
 metaEl = createEl('meta', {
     name: 'digitaldata-destinationURL',
-    content: 'https://poco.entegris.com/en/home/our-science/by-industry/aerospace.html'
+    content: location.href
 }, '', headEl);
 
 metaEl = createEl('meta', {
@@ -207,11 +217,6 @@ metaEl = createEl('meta', {
 metaEl = createEl('meta', {
     name: 'launchPath',
     content: '//assets.adobedtm.com/1b548f3b9240/c16617d20d5f/launch-b0421ba95fc7.min.js'
-}, '', headEl);
-
-metaEl = createEl('meta', {
-    name: 'digitaldata-pageInstanceID',
-    content: 'content-microsite-live-poco-live-en-home-our-science-by-industry-aerospace'
 }, '', headEl);
 
 metaEl = createEl('meta', {
@@ -244,6 +249,7 @@ const digitalData = {
         socialnetworking: true
     }
 };
+
 setTimeout(function () {
     if (digitalData.cookiepreference.analytics === true && digitalData.cookiepreference.advertising === true && digitalData.cookiepreference.socialnetworking === true) {
         (function (w, d, s, l, i) {
